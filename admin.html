@@ -1,106 +1,255 @@
-/* -----------------------------
-   ADMIN CONSOLE
---------------------------------*/
-.admin-page {
-  max-width: 960px;
-  margin: auto;
-  padding: 20px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAYLIFE — Admin Console (local)</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="DAYLIFE Logo" />
+      <span>DAYLIFE</span>
+    </div>
+    <nav class="desktop-nav">
+      <a href="home.html">🏠 Home</a>
+      <a href="dreams.html">💭 Dreams</a>
+      <a href="reflections.html">🪞 Reflections</a>
+      <a href="profile.html">👤 Profile</a>
+      <!-- Pas de lien visible vers l’admin si tu veux le garder “secret” -->
+    </nav>
+  </header>
 
-.admin-card {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 18px 20px;
-  margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-  border: 1px solid #e5e7eb;
-}
+  <main class="admin-page">
+    <section class="admin-card admin-header">
+      <h1>DAYLIFE — Console locale</h1>
+      <p>
+        Cette page te permet de voir et modifier <strong>les données stockées dans ce navigateur</strong>
+        (profil, rêves, réflexions). Idéal pour tester, corriger, ou faire des backups.
+      </p>
+      <p class="admin-warning">
+        ⚠️ Tout ce que tu modifies ici n'affecte que <strong>cet appareil / ce navigateur</strong>.
+        Aucun serveur n'est impliqué.
+      </p>
 
-.admin-header h1 {
-  margin: 0 0 6px;
-}
-.admin-header p {
-  margin: 4px 0;
-}
-.admin-warning {
-  margin-top: 8px;
-  font-size: 0.85rem;
-  color: #b91c1c;
-}
+      <div class="admin-summary" id="adminSummary"></div>
 
-.admin-summary {
-  margin-top: 12px;
-}
-.admin-summary-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 6px;
-}
-.admin-summary-grid .label {
-  font-size: 0.75rem;
-  color: #6b7280;
-}
-.admin-summary-grid .value {
-  font-size: 1rem;
-  font-weight: 600;
-}
+      <div class="admin-actions">
+        <button id="exportBtn" class="primary-btn">📤 Exporter toutes les données (JSON)</button>
+        <label class="file-btn">
+          📥 Importer des données (JSON)
+          <input type="file" id="importInput" accept="application/json" hidden />
+        </label>
+        <button id="resetBtn" class="danger-btn">🧨 Reset complet (localStorage)</button>
+      </div>
+    </section>
 
-.admin-actions {
-  margin-top: 14px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.admin-actions-row {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.admin-textarea {
-  width: 100%;
-  min-height: 160px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.85rem;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid #cbd5e1;
-  background: #f9fafb;
-  resize: vertical;
-}
+    <!-- Profil -->
+    <section class="admin-card">
+      <h2>Profil (clé : <code>profile</code>)</h2>
+      <p class="small">
+        Tu peux éditer directement l’objet JSON. Ex :
+        <code>{"name":"David","totalStars":25,"streakDays":7,...}</code>
+      </p>
+      <textarea id="profileJson" class="admin-textarea" spellcheck="false"></textarea>
+      <div class="admin-actions-row">
+        <button id="saveProfileBtn" class="primary-btn">💾 Sauvegarder le profil</button>
+        <a href="profile.html" class="link-btn" target="_blank">👀 Ouvrir la page Profile</a>
+      </div>
+    </section>
 
-.small {
-  font-size: 0.8rem;
-  color: #6b7280;
-}
+    <!-- Rêves -->
+    <section class="admin-card">
+      <h2>Rêves (clé : <code>dreams</code>)</h2>
+      <p class="small">
+        Tableau d’objets. Tu peux ajouter, supprimer ou modifier des rêves à la main.
+      </p>
+      <textarea id="dreamsJson" class="admin-textarea" spellcheck="false"></textarea>
+      <div class="admin-actions-row">
+        <button id="saveDreamsBtn" class="primary-btn">💾 Sauvegarder les rêves</button>
+        <a href="dreams.html" class="link-btn" target="_blank">👀 Ouvrir la page Dreams</a>
+      </div>
+    </section>
 
-.file-btn {
-  border-radius: 999px;
-  border: 1px solid #cbd5e1;
-  padding: 8px 12px;
-  background: #f9fafb;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
+    <!-- Réflexions -->
+    <section class="admin-card">
+      <h2>Réflexions (clé : <code>reflections</code>)</h2>
+      <p class="small">
+        Tableau d’objets (une entrée par réflexion). Tu peux corriger ou importer un journal complet.
+      </p>
+      <textarea id="reflectionsJson" class="admin-textarea" spellcheck="false"></textarea>
+      <div class="admin-actions-row">
+        <button id="saveReflectionsBtn" class="primary-btn">💾 Sauvegarder les réflexions</button>
+        <a href="reflections.html" class="link-btn" target="_blank">👀 Ouvrir la page Reflections</a>
+      </div>
+    </section>
+  </main>
 
-.link-btn {
-  border-radius: 999px;
-  border: 1px solid #cbd5e1;
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  text-decoration: none;
-  color: #334155;
-  background: #f9fafb;
-}
+  <!-- Pas de nav mobile en bas pour l’admin (optionnel) -->
 
-@media (max-width: 768px) {
-  .admin-summary-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 480px) {
-  .admin-summary-grid {
-    grid-template-columns: 1fr;
-  }
-}
+  <script>
+    // --- Utilitaires JSON sûrs ---
+    function safeParse(text, fallback) {
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error("JSON parse error:", e);
+        return fallback;
+      }
+    }
+
+    function pretty(value) {
+      return JSON.stringify(value, null, 2);
+    }
+
+    // --- Chargement des données depuis localStorage ---
+    function loadData() {
+      const profile = safeParse(localStorage.getItem("profile") || "null", null);
+      const dreams = safeParse(localStorage.getItem("dreams") || "[]", []);
+      const reflections = safeParse(localStorage.getItem("reflections") || "[]", []);
+
+      // Remplir les textareas
+      document.getElementById("profileJson").value = profile ? pretty(profile) : "";
+      document.getElementById("dreamsJson").value = pretty(dreams);
+      document.getElementById("reflectionsJson").value = pretty(reflections);
+
+      // Résumé en haut
+      const summary = document.getElementById("adminSummary");
+      const name = profile && profile.name ? profile.name : "Inconnu";
+      const stars = profile && profile.totalStars ? profile.totalStars : 0;
+      const streak = profile && profile.streakDays ? profile.streakDays : 0;
+
+      summary.innerHTML = `
+        <div class="admin-summary-grid">
+          <div>
+            <div class="label">Nom</div>
+            <div class="value">${name}</div>
+          </div>
+          <div>
+            <div class="label">Étoiles</div>
+            <div class="value">⭐ ${stars}</div>
+          </div>
+          <div>
+            <div class="label">Streak</div>
+            <div class="value">🔥 ${streak} jours</div>
+          </div>
+          <div>
+            <div class="label">Rêves</div>
+            <div class="value">${dreams.length}</div>
+          </div>
+          <div>
+            <div class="label">Réflexions</div>
+            <div class="value">${reflections.length}</div>
+          </div>
+          <div>
+            <div class="label">Clés localStorage</div>
+            <div class="value">${Object.keys(localStorage).length}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- Sauvegardes ---
+    function saveKeyFromTextarea(key, textareaId) {
+      const raw = document.getElementById(textareaId).value.trim();
+      if (!raw) {
+        if (!confirm("Le contenu est vide. Supprimer la clé '" + key + "' du localStorage ?")) {
+          return;
+        }
+        localStorage.removeItem(key);
+        alert("Clé '" + key + "' supprimée.");
+        loadData();
+        return;
+      }
+      try {
+        const parsed = JSON.parse(raw);
+        localStorage.setItem(key, JSON.stringify(parsed));
+        alert("Données sauvegardées pour '" + key + "'.");
+        loadData();
+      } catch (e) {
+        alert("Erreur JSON : " + e.message);
+      }
+    }
+
+    // --- Export complet ---
+    function exportAll() {
+      const data = {
+        profile: safeParse(localStorage.getItem("profile") || "null", null),
+        dreams: safeParse(localStorage.getItem("dreams") || "[]", []),
+        reflections: safeParse(localStorage.getItem("reflections") || "[]", [])
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "daylife-backup.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // --- Import complet ---
+    function importAll(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          if (data.profile !== undefined) {
+            localStorage.setItem("profile", JSON.stringify(data.profile));
+          }
+          if (data.dreams !== undefined) {
+            localStorage.setItem("dreams", JSON.stringify(data.dreams));
+          }
+          if (data.reflections !== undefined) {
+            localStorage.setItem("reflections", JSON.stringify(data.reflections));
+          }
+          alert("Import terminé !");
+          loadData();
+        } catch (e) {
+          alert("Fichier invalide : " + e.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // --- Reset complet ---
+    function resetAll() {
+      if (confirm("⚠️ Cela va effacer TOUT le localStorage pour ce domaine. Continuer ?")) {
+        localStorage.clear();
+        alert("localStorage vidé. Tu peux maintenant recharger la page.");
+        loadData();
+      }
+    }
+
+    // --- Wiring des boutons ---
+    document.getElementById("saveProfileBtn").addEventListener("click", () => {
+      saveKeyFromTextarea("profile", "profileJson");
+    });
+    document.getElementById("saveDreamsBtn").addEventListener("click", () => {
+      saveKeyFromTextarea("dreams", "dreamsJson");
+    });
+    document.getElementById("saveReflectionsBtn").addEventListener("click", () => {
+      saveKeyFromTextarea("reflections", "reflectionsJson");
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", exportAll);
+    document.getElementById("resetBtn").addEventListener("click", resetAll);
+
+    document.getElementById("importInput").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) importAll(file);
+      e.target.value = "";
+    });
+
+    document.querySelector(".file-btn").addEventListener("click", () => {
+      document.getElementById("importInput").click();
+    });
+
+    // Initial load
+    loadData();
+  </script>
+</body>
+</html>

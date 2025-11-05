@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAYLIFE — Life Counter</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="DAYLIFE Logo" />
+      <span>DAYLIFE</span>
+    </div>
+    <nav class="desktop-nav">
+      <a href="home.html" class="active">🏠 Home</a>
+      <a href="dreams.html">💭 Dreams</a>
+      <a href="reflections.html">🪞 Reflections</a>
+      <a href="profile.html">👤 Profile</a>
+    </nav>
+  </header>
+
+  <main class="home-page">
+    <section class="profile-summary">
+      <img src="assets/avatar.png" alt="User Avatar" class="avatar" />
+      <h2 id="userName">David</h2>
+      <div class="stats-inline">
+        <div class="stat">
+          <span class="emoji">⭐</span>
+          <span id="starsCount">25</span>
+          <small>stars</small>
+        </div>
+        <div class="stat">
+          <span class="emoji">🔥</span>
+          <span id="streakCount">7</span>
+          <small>day streak</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="life-counter">
+      <h3>Vous vivez le jour</h3>
+      <h1 id="dayNumber">#0</h1>
+      <p><span id="daysLeft">...</span> jours devant vous</p>
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <small id="percentCompleted">0% de votre parcours accompli</small>
+    </section>
+
+    <section class="inspiration">
+      <h4>💡 Today’s Inspiration</h4>
+      <blockquote id="quoteText">"You are your own miracle."</blockquote>
+      <p>Turn your days into dreams, and your dreams into days.</p>
+    </section>
+
+    <section class="how-to-earn">
+      <h3>⭐ How to Earn Stars</h3>
+      <ul>
+        <li>🕒 Daily login → +1</li>
+        <li>💭 Add a dream → +2</li>
+        <li>📔 Add a reflection → +1</li>
+        <li>🏁 Complete a dream → +3</li>
+        <li>📅 7-day streak bonus → +10</li>
+        <li>👥 Invite a friend → +5</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer id="mobileNav"></footer>
+  <script src="assets/nav.js"></script>
+  <script>
+    createNavBar("home");
+
+    // Load user data
+    const profile = JSON.parse(localStorage.getItem("profile")) || { name: "David" };
+    document.getElementById("userName").innerText = profile.name;
+
+    // Life calculation
+    const birthdate = localStorage.getItem("birthdate") || "1978-09-15"; // exemple par défaut
+    const avgLifeDays = 30000;
+    const birth = new Date(birthdate);
+    const now = new Date();
+    const lived = Math.floor((now - birth) / (1000 * 60 * 60 * 24));
+    const left = avgLifeDays - lived;
+    const percent = ((lived / avgLifeDays) * 100).toFixed(1);
+
+    document.getElementById("dayNumber").innerText = `#${lived.toLocaleString()}`;
+    document.getElementById("daysLeft").innerText = left.toLocaleString();
+    document.getElementById("percentCompleted").innerText = `${percent}% de votre parcours accompli`;
+
+    const bar = document.getElementById("progressBar");
+    bar.style.width = `${percent}%`;
+
+    // Random inspirational quote
+    const quotes = [
+      "You are your own miracle.",
+      "Make today count.",
+      "Dream. Plan. Act. Repeat.",
+      "Every sunrise is a new chance.",
+      "The journey matters more than the goal.",
+      "Live intentionally, love endlessly."
+    ];
+    document.getElementById("quoteText").innerText =
+      quotes[Math.floor(Math.random() * quotes.length)];
+  </script>
+</body>
+</html>

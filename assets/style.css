@@ -1,0 +1,93 @@
+/* HOME PAGE STYLES */
+.home-page {
+  max-width: 600px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+.profile-summary {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+}
+.stats-inline {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
+}
+.stat {
+  text-align: center;
+}
+.stat span {
+  display: block;
+}
+.stat .emoji {
+  font-size: 1.4rem;
+}
+
+.life-counter {
+  text-align: center;
+  background: linear-gradient(135deg, #f1f5ff, #fdf2f8);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.life-counter h1 {
+  font-size: 3rem;
+  color: var(--purple);
+}
+.progress-container {
+  background: #e5e7eb;
+  border-radius: 10px;
+  height: 10px;
+  width: 100%;
+  margin: 15px 0;
+}
+.progress-bar {
+  height: 10px;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
+
+.inspiration {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  margin-bottom: 25px;
+}
+.inspiration blockquote {
+  font-style: italic;
+  color: var(--purple);
+  margin: 10px 0;
+}
+
+.how-to-earn {
+  background: #fff7ed;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.how-to-earn h3 {
+  color: var(--orange);
+  text-align: center;
+  margin-bottom: 10px;
+}
+.how-to-earn ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.how-to-earn li {
+  padding: 8px 0;
+  font-weight: 500;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAYLIFE – Paramètres</title>
+  <link rel="stylesheet" href="assets/admin.css" />
+</head>
+
+<body>
+  <!-- 🔐 Protection admin -->
+  <script>
+    const role = localStorage.getItem("userRole");
+    const isAdmin = localStorage.getItem("adminLoggedIn");
+    if (!isAdmin || role !== "admin") {
+      window.location.href = "../home.html";
+    }
+  </script>
+
+  <!-- 🌙 Menu latéral -->
+  <aside class="sidebar hidden" id="sidebar">
+    <h1>🌕 DAYLIFE Admin</h1>
+    <nav class="menu">
+      <a href="dashboard.html">📊 Tableau de bord</a>
+      <a href="users.html">👥 Utilisateurs</a>
+      <a href="settings.html" class="active">⚙️ Paramètres</a>
+      <a href="../home.html">🏠 Application</a>
+    </nav>
+    <button id="logoutBtn" class="logout-btn">Se déconnecter</button>
+  </aside>
+
+  <!-- 🍔 Menu burger -->
+  <div class="burger" id="burger">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- 🌕 Contenu principal -->
+  <main class="admin-main">
+    <header class="admin-top">
+      <h2>Paramètres du système</h2>
+    </header>
+
+    <section class="settings-grid">
+      <!-- Thème -->
+      <div class="setting-card">
+        <h3>🎨 Thème</h3>
+        <p>Choisissez le style visuel du back-office</p>
+        <select id="themeSelect">
+          <option value="light">Clair (par défaut)</option>
+          <option value="dark">Sombre</option>
+          <option value="lunar">Lunaire 🌙</option>
+        </select>
+        <button class="btn-save" onclick="saveTheme()">💾 Sauvegarder</button>
+      </div>
+
+      <!-- Langue -->
+      <div class="setting-card">
+        <h3>🌐 Langue</h3>
+        <p>Sélectionnez la langue d’administration</p>
+        <select id="langSelect">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="th">ไทย (Thaï)</option>
+          <option value="my">မြန်မာ (Birman)</option>
+          <option value="zh">中文 (Chinois)</option>
+        </select>
+        <button class="btn-save" onclick="saveLang()">💾 Appliquer</button>
+      </div>
+
+      <!-- Sécurité -->
+      <div class="setting-card">
+        <h3>🔒 Sécurité</h3>
+        <p>Changer le mot de passe administrateur</p>
+        <input type="password" id="newPassword" placeholder="Nouveau mot de passe..." />
+        <button class="btn-save" onclick="updatePassword()">🗝️ Mettre à jour</button>
+      </div>
+
+      <!-- Informations système -->
+      <div class="setting-card">
+        <h3>🧠 Informations système</h3>
+        <ul>
+          <li><b>Version de l’app :</b> 1.0.0</li>
+          <li><b>Date du build :</b> Novembre 2025</li>
+          <li><b>Dernière sauvegarde :</b> <span id="lastBackup">Non disponible</span></li>
+        </ul>
+        <button class="btn-export" onclick="doBackup()">📦 Sauvegarder maintenant</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/admin.js"></script>
+
+  <script>
+    function saveTheme() {
+      const theme = document.getElementById("themeSelect").value;
+      localStorage.setItem("adminTheme", theme);
+      alert("🎨 Thème appliqué : " + theme);
+      document.body.dataset.theme = theme;
+    }
+
+    function saveLang() {
+      const lang = document.getElementById("langSelect").value;
+      localStorage.setItem("adminLang", lang);
+      alert("🌐 Langue changée : " + lang.toUpperCase());
+    }
+
+    function updatePassword() {
+      const pwd = document.getElementById("newPassword").value;
+      if (!pwd) return alert("Veuillez entrer un mot de passe.");
+      localStorage.setItem("adminPwd", pwd);
+      alert("🔒 Mot de passe mis à jour !");
+      document.getElementById("newPassword").value = "";
+    }
+
+    function doBackup() {
+      const now = new Date().toLocaleString();
+      localStorage.setItem("lastBackup", now);
+      document.getElementById("lastBackup").textContent = now;
+      alert("✅ Sauvegarde enregistrée !");
+    }
+
+    // Charger le thème et la langue au démarrage
+    window.addEventListener("load", () => {
+      const theme = localStorage.getItem("adminTheme") || "light";
+      const lang = localStorage.getItem("adminLang") || "fr";
+      document.getElementById("themeSelect").value = theme;
+      document.getElementById("langSelect").value = lang;
+      document.body.dataset.theme = theme;
+
+      const backup = localStorage.getItem("lastBackup");
+      if (backup) document.getElementById("lastBackup").textContent = backup;
+    });
+  </script>
+</body>
+</html>

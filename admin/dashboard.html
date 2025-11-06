@@ -3,92 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DAYLIFE – Tableau de bord</title>
+  <title>DAYLIFE – Dashboard</title>
   <link rel="stylesheet" href="assets/admin.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    :root {
-      --primary: #6366f1;
-      --secondary: #a855f7;
-      --bg-light: #f5f3ff;
-      --text-dark: #334155;
-    }
-
     body {
-      display: flex;
-      height: 100vh;
-      margin: 0;
       font-family: 'Inter', sans-serif;
+      margin: 0;
       background: linear-gradient(135deg, #eef2ff, #faf5ff, #fce7f3);
-      color: var(--text-dark);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* ===== MENU LATÉRAL ===== */
-    aside {
+    /* ---- SIDEBAR ---- */
+    .sidebar {
       width: 240px;
-      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      background: linear-gradient(180deg, #4f46e5, #7c3aed, #a855f7);
       color: white;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      padding: 20px 0;
-      box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+      padding: 30px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      box-shadow: 4px 0 8px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+      z-index: 1000;
     }
 
-    .logo {
-      text-align: center;
-      font-weight: 800;
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+
+    .sidebar h1 {
       font-size: 1.4rem;
-      letter-spacing: -0.5px;
+      margin-bottom: 30px;
+      font-weight: 800;
+      text-align: center;
     }
 
-    .logo span {
-      font-size: 1.8rem;
-    }
-
-    nav {
+    .menu {
       display: flex;
       flex-direction: column;
-      margin-top: 30px;
+      gap: 15px;
     }
 
-    nav a {
+    .menu a {
       text-decoration: none;
-      color: white;
-      padding: 12px 20px;
+      color: #e0e7ff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: 0.3s;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 10px;
-      transition: 0.3s;
     }
 
-    nav a:hover, nav a.active {
-      background: rgba(255,255,255,0.2);
-      border-left: 4px solid white;
+    .menu a:hover,
+    .menu a.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
     }
 
-    .logout {
-      margin: 20px;
-      background: #ef4444;
+    .logout-btn {
+      margin-top: auto;
+      background: #fca5a5;
       border: none;
       color: white;
-      padding: 10px;
+      padding: 10px 16px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
       transition: 0.3s;
     }
 
-    .logout:hover {
-      background: #dc2626;
+    .logout-btn:hover {
+      background: #ef4444;
     }
 
-    /* ===== CONTENU ===== */
+    /* ---- MAIN CONTENT ---- */
     main {
-      flex: 1;
-      overflow-y: auto;
+      margin-left: 260px;
       padding: 40px;
+      flex: 1;
+      transition: margin-left 0.3s ease;
+      width: 100%;
     }
 
     header {
@@ -98,57 +100,81 @@
       margin-bottom: 30px;
     }
 
-    header h1 {
+    header h2 {
+      color: #334155;
       font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    /* Burger button */
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .burger span {
+      width: 25px;
+      height: 3px;
+      background: #4f46e5;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .burger.active span:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+    .burger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.active span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 20px;
     }
 
     .stat-card {
       background: white;
-      border-radius: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      padding: 24px;
-      text-align: left;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      text-align: center;
       transition: 0.3s;
     }
 
     .stat-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
     }
 
     .stat-card h3 {
-      font-size: 1.1rem;
-      color: var(--text-dark);
-      margin: 0;
+      color: #475569;
+      margin-bottom: 10px;
+      font-size: 1rem;
     }
 
     .stat-card span {
-      display: block;
       font-size: 2rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-top: 10px;
+      font-weight: 700;
+      color: #4f46e5;
     }
 
     .chart-section {
       background: white;
-      border-radius: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
       margin-top: 40px;
-      padding: 30px;
+      padding: 25px;
     }
 
-    .chart-section h2 {
+    .chart-section h3 {
+      color: #475569;
+      font-size: 1.2rem;
       margin-bottom: 20px;
-      color: var(--text-dark);
-      font-size: 1.3rem;
     }
 
     canvas {
@@ -157,14 +183,18 @@
     }
 
     @media (max-width: 768px) {
-      aside {
-        display: none;
+      .sidebar {
+        transform: translateX(-100%);
       }
-      body {
-        flex-direction: column;
+      .sidebar.active {
+        transform: translateX(0);
       }
       main {
+        margin-left: 0;
         padding: 20px;
+      }
+      .burger {
+        display: flex;
       }
     }
   </style>
@@ -177,108 +207,105 @@
     }
   </script>
 
-  <!-- ===== MENU LATÉRAL ===== -->
-  <aside>
-    <div>
-      <div class="logo">
-        <span>🌙</span> DAYLIFE
-      </div>
-
-      <nav>
-        <a href="dashboard.html" class="active">📊 Tableau de bord</a>
-        <a href="users.html">👥 Utilisateurs</a>
-        <a href="../dreams.html">💭 Rêves</a>
-        <a href="../reflections.html">🪞 Réflexions</a>
-      </nav>
-    </div>
-
-    <button class="logout" id="logoutBtn">Se déconnecter</button>
+  <!-- 🌙 SIDEBAR -->
+  <aside class="sidebar hidden" id="sidebar">
+    <h1>🌕 DAYLIFE Admin</h1>
+    <nav class="menu">
+      <a href="dashboard.html" class="active">📊 Tableau de bord</a>
+      <a href="users.html">👥 Utilisateurs</a>
+      <a href="../home.html">🏠 Application</a>
+    </nav>
+    <button id="logoutBtn" class="logout-btn">Se déconnecter</button>
   </aside>
 
-  <!-- ===== CONTENU PRINCIPAL ===== -->
+  <!-- 🌕 MAIN CONTENT -->
   <main>
     <header>
-      <h1>Tableau de bord – Vue d’ensemble</h1>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <h2>Tableau de bord</h2>
     </header>
 
     <section class="stats-grid">
       <div class="stat-card">
         <h3>👥 Utilisateurs</h3>
-        <span id="userCount">0</span>
+        <span id="userCount">125</span>
       </div>
-
       <div class="stat-card">
         <h3>💭 Rêves</h3>
-        <span id="dreamCount">0</span>
+        <span id="dreamCount">342</span>
       </div>
-
       <div class="stat-card">
         <h3>🪞 Réflexions</h3>
-        <span id="reflectionCount">0</span>
+        <span id="reflectionCount">589</span>
       </div>
-
       <div class="stat-card">
-        <h3>⭐ Étoiles totales</h3>
-        <span id="totalStars">0</span>
+        <h3>⭐ Étoiles</h3>
+        <span id="starCount">920</span>
       </div>
     </section>
 
     <section class="chart-section">
-      <h2>Activité des 7 derniers jours</h2>
+      <h3>Activité des 7 derniers jours</h3>
       <canvas id="activityChart"></canvas>
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const dashboardData = {
-      users: 125,
-      dreams: 342,
-      reflections: 589,
-      totalStars: 920,
-      activity: {
-        labels: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
-        users: [5, 8, 12, 9, 15, 18, 10],
-        stars: [30, 50, 40, 60, 80, 70, 45]
-      }
+    /* --- Exemple de données statiques --- */
+    const data = {
+      labels: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+      users: [5, 8, 10, 12, 15, 11, 9],
+      stars: [25, 40, 35, 60, 70, 90, 65]
     };
-
-    document.getElementById("userCount").textContent = dashboardData.users;
-    document.getElementById("dreamCount").textContent = dashboardData.dreams;
-    document.getElementById("reflectionCount").textContent = dashboardData.reflections;
-    document.getElementById("totalStars").textContent = dashboardData.totalStars;
 
     const ctx = document.getElementById("activityChart").getContext("2d");
     new Chart(ctx, {
       type: "line",
       data: {
-        labels: dashboardData.activity.labels,
+        labels: data.labels,
         datasets: [
           {
             label: "Nouveaux utilisateurs",
-            data: dashboardData.activity.users,
+            data: data.users,
             borderColor: "#6366f1",
             backgroundColor: "rgba(99,102,241,0.2)",
             fill: true,
-            tension: 0.4
+            tension: 0.3
           },
           {
             label: "Étoiles gagnées",
-            data: dashboardData.activity.stars,
+            data: data.stars,
             borderColor: "#f59e0b",
             backgroundColor: "rgba(245,158,11,0.2)",
             fill: true,
-            tension: 0.4
+            tension: 0.3
           }
         ]
       },
       options: {
         responsive: true,
-        scales: { y: { beginAtZero: true } },
-        plugins: { legend: { position: "bottom" } }
+        plugins: {
+          legend: { position: "bottom" }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
     });
 
+    // 🔸 Burger Menu Toggle
+    const burger = document.getElementById("burger");
+    const sidebar = document.getElementById("sidebar");
+    burger.addEventListener("click", () => {
+      burger.classList.toggle("active");
+      sidebar.classList.toggle("hidden");
+    });
+
+    // 🔸 Logout
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("adminLoggedIn");
       window.location.href = "admin-login.html";

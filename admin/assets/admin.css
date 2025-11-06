@@ -77,3 +77,52 @@ body {
   padding: 1.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
+/* --- Users Page --- */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.admin-table th, .admin-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 10px;
+  text-align: left;
+}
+
+.admin-table th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+.admin-table tr:hover {
+  background: #f3f4f6;
+}
+
+.btn-edit, .btn-delete {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 0.8rem;
+}
+.btn-edit {
+  background: #3b82f6;
+}
+.btn-delete {
+  background: #ef4444;
+}
+
+.btn-export {
+  background: #10b981;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+.btn-export:hover {
+  opacity: 0.9;
+}

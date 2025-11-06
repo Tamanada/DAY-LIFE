@@ -7,49 +7,107 @@
   <link rel="stylesheet" href="assets/admin.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --bg-light: #f5f3ff;
+      --text-dark: #334155;
+    }
+
     body {
+      display: flex;
+      height: 100vh;
+      margin: 0;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #eef2ff, #faf5ff, #fce7f3);
-      margin: 0;
-      padding: 0;
+      color: var(--text-dark);
     }
 
-    header {
-      background: linear-gradient(90deg, #4f46e5, #7c3aed, #a855f7);
+    /* ===== MENU LATÉRAL ===== */
+    aside {
+      width: 240px;
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
       color: white;
-      padding: 20px 40px;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 3px solid #c4b5fd;
+      padding: 20px 0;
+      box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     }
 
-    header h1 {
-      font-size: 1.8rem;
+    .logo {
+      text-align: center;
       font-weight: 800;
+      font-size: 1.4rem;
       letter-spacing: -0.5px;
     }
 
-    header button {
-      background: #fca5a5;
+    .logo span {
+      font-size: 1.8rem;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 12px 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      background: rgba(255,255,255,0.2);
+      border-left: 4px solid white;
+    }
+
+    .logout {
+      margin: 20px;
+      background: #ef4444;
       border: none;
       color: white;
-      padding: 10px 18px;
+      padding: 10px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
       transition: 0.3s;
     }
 
-    header button:hover {
-      background: #ef4444;
+    .logout:hover {
+      background: #dc2626;
+    }
+
+    /* ===== CONTENU ===== */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-dark);
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      padding: 40px;
     }
 
     .stat-card {
@@ -63,38 +121,34 @@
 
     .stat-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
     }
 
     .stat-card h3 {
+      font-size: 1.1rem;
+      color: var(--text-dark);
       margin: 0;
-      font-size: 1.2rem;
-      color: #334155;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .stat-card span {
       display: block;
-      margin-top: 8px;
       font-size: 2rem;
       font-weight: 800;
-      color: #4f46e5;
+      color: var(--primary);
+      margin-top: 10px;
     }
 
     .chart-section {
       background: white;
       border-radius: 18px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      margin: 0 40px 60px;
+      margin-top: 40px;
       padding: 30px;
     }
 
     .chart-section h2 {
-      margin: 0 0 20px;
-      color: #334155;
-      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-size: 1.3rem;
     }
 
     canvas {
@@ -102,17 +156,15 @@
       height: 300px;
     }
 
-    @media (max-width: 600px) {
-      header {
+    @media (max-width: 768px) {
+      aside {
+        display: none;
+      }
+      body {
         flex-direction: column;
-        text-align: center;
-        gap: 10px;
       }
-      .stats-grid {
+      main {
         padding: 20px;
-      }
-      .chart-section {
-        margin: 20px;
       }
     }
   </style>
@@ -120,18 +172,35 @@
 
 <body>
   <script>
-    // Protection d’accès (si pas connecté)
     if (!localStorage.getItem("adminLoggedIn")) {
       window.location.href = "admin-login.html";
     }
   </script>
 
-  <header>
-    <h1>🌙 DAYLIFE – Panneau d’administration</h1>
-    <button id="logoutBtn">Se déconnecter</button>
-  </header>
+  <!-- ===== MENU LATÉRAL ===== -->
+  <aside>
+    <div>
+      <div class="logo">
+        <span>🌙</span> DAYLIFE
+      </div>
 
+      <nav>
+        <a href="dashboard.html" class="active">📊 Tableau de bord</a>
+        <a href="users.html">👥 Utilisateurs</a>
+        <a href="../dreams.html">💭 Rêves</a>
+        <a href="../reflections.html">🪞 Réflexions</a>
+      </nav>
+    </div>
+
+    <button class="logout" id="logoutBtn">Se déconnecter</button>
+  </aside>
+
+  <!-- ===== CONTENU PRINCIPAL ===== -->
   <main>
+    <header>
+      <h1>Tableau de bord – Vue d’ensemble</h1>
+    </header>
+
     <section class="stats-grid">
       <div class="stat-card">
         <h3>👥 Utilisateurs</h3>
@@ -155,13 +224,13 @@
     </section>
 
     <section class="chart-section">
-      <h2>📊 Activité des 7 derniers jours</h2>
+      <h2>Activité des 7 derniers jours</h2>
       <canvas id="activityChart"></canvas>
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    /* === Données simulées (temporairement statiques, à connecter à ta BDD plus tard) === */
     const dashboardData = {
       users: 125,
       dreams: 342,
@@ -174,13 +243,11 @@
       }
     };
 
-    /* === Injection des chiffres === */
     document.getElementById("userCount").textContent = dashboardData.users;
     document.getElementById("dreamCount").textContent = dashboardData.dreams;
     document.getElementById("reflectionCount").textContent = dashboardData.reflections;
     document.getElementById("totalStars").textContent = dashboardData.totalStars;
 
-    /* === Création du graphique Chart.js === */
     const ctx = document.getElementById("activityChart").getContext("2d");
     new Chart(ctx, {
       type: "line",
@@ -207,16 +274,11 @@
       },
       options: {
         responsive: true,
-        scales: {
-          y: { beginAtZero: true }
-        },
-        plugins: {
-          legend: { position: "bottom" }
-        }
+        scales: { y: { beginAtZero: true } },
+        plugins: { legend: { position: "bottom" } }
       }
     });
 
-    /* === Déconnexion === */
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("adminLoggedIn");
       window.location.href = "admin-login.html";

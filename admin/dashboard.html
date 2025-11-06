@@ -3,207 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DAYLIFE – Dashboard</title>
+  <title>DAYLIFE – Tableau de bord</title>
   <link rel="stylesheet" href="assets/admin.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #eef2ff, #faf5ff, #fce7f3);
-      display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ---- SIDEBAR ---- */
-    .sidebar {
-      width: 240px;
-      background: linear-gradient(180deg, #4f46e5, #7c3aed, #a855f7);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      padding: 30px 20px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      box-shadow: 4px 0 8px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease;
-      z-index: 1000;
-    }
-
-    .sidebar.hidden {
-      transform: translateX(-100%);
-    }
-
-    .sidebar h1 {
-      font-size: 1.4rem;
-      margin-bottom: 30px;
-      font-weight: 800;
-      text-align: center;
-    }
-
-    .menu {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .menu a {
-      text-decoration: none;
-      color: #e0e7ff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      transition: 0.3s;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .menu a:hover,
-    .menu a.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-    }
-
-    .logout-btn {
-      margin-top: auto;
-      background: #fca5a5;
-      border: none;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .logout-btn:hover {
-      background: #ef4444;
-    }
-
-    /* ---- MAIN CONTENT ---- */
-    main {
-      margin-left: 260px;
-      padding: 40px;
-      flex: 1;
-      transition: margin-left 0.3s ease;
-      width: 100%;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    header h2 {
-      color: #334155;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-
-    /* Burger button */
-    .burger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
-
-    .burger span {
-      width: 25px;
-      height: 3px;
-      background: #4f46e5;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .burger.active span:nth-child(1) {
-      transform: rotate(45deg) translateY(8px);
-    }
-    .burger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .burger.active span:nth-child(3) {
-      transform: rotate(-45deg) translateY(-8px);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .stat-card h3 {
-      color: #475569;
-      margin-bottom: 10px;
-      font-size: 1rem;
-    }
-
-    .stat-card span {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #4f46e5;
-    }
-
-    .chart-section {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      margin-top: 40px;
-      padding: 25px;
-    }
-
-    .chart-section h3 {
-      color: #475569;
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-
-    canvas {
-      width: 100%;
-      height: 300px;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-      .sidebar.active {
-        transform: translateX(0);
-      }
-      main {
-        margin-left: 0;
-        padding: 20px;
-      }
-      .burger {
-        display: flex;
-      }
-    }
-  </style>
 </head>
 
 <body>
+  <!-- 🔐 Protection admin -->
   <script>
-    if (!localStorage.getItem("adminLoggedIn")) {
-      window.location.href = "admin-login.html";
+    const role = localStorage.getItem("userRole");
+    const isAdmin = localStorage.getItem("adminLoggedIn");
+    if (!isAdmin || role !== "admin") {
+      window.location.href = "../home.html";
     }
   </script>
 
@@ -213,20 +24,19 @@
     <nav class="menu">
       <a href="dashboard.html" class="active">📊 Tableau de bord</a>
       <a href="users.html">👥 Utilisateurs</a>
+      <a href="settings.html">⚙️ Paramètres</a>
       <a href="../home.html">🏠 Application</a>
     </nav>
     <button id="logoutBtn" class="logout-btn">Se déconnecter</button>
   </aside>
 
+  <!-- 🍔 BURGER (mobile) -->
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+
   <!-- 🌕 MAIN CONTENT -->
-  <main>
-    <header>
-      <div class="burger" id="burger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <h2>Tableau de bord</h2>
+  <main class="admin-main">
+    <header class="admin-header">
+      <h2>📊 Tableau de bord</h2>
     </header>
 
     <section class="stats-grid">
@@ -249,28 +59,38 @@
     </section>
 
     <section class="chart-section">
-      <h3>Activité des 7 derniers jours</h3>
+      <h3>📈 Activité des 7 derniers jours</h3>
       <canvas id="activityChart"></canvas>
     </section>
   </main>
 
+  <!-- 🧠 SCRIPT DU MENU BURGER + GRAPHIQUE -->
   <script>
-    /* --- Exemple de données statiques --- */
-    const data = {
-      labels: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
-      users: [5, 8, 10, 12, 15, 11, 9],
-      stars: [25, 40, 35, 60, 70, 90, 65]
-    };
+    // --- BURGER ---
+    const burger = document.getElementById("burger");
+    const sidebar = document.getElementById("sidebar");
+    burger.addEventListener("click", () => {
+      burger.classList.toggle("active");
+      sidebar.classList.toggle("hidden");
+    });
 
+    // --- LOGOUT ---
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("adminLoggedIn");
+      localStorage.removeItem("userRole");
+      window.location.href = "admin-login.html";
+    });
+
+    // --- GRAPH ---
     const ctx = document.getElementById("activityChart").getContext("2d");
     new Chart(ctx, {
       type: "line",
       data: {
-        labels: data.labels,
+        labels: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
         datasets: [
           {
             label: "Nouveaux utilisateurs",
-            data: data.users,
+            data: [5, 8, 10, 12, 15, 11, 9],
             borderColor: "#6366f1",
             backgroundColor: "rgba(99,102,241,0.2)",
             fill: true,
@@ -278,7 +98,7 @@
           },
           {
             label: "Étoiles gagnées",
-            data: data.stars,
+            data: [25, 40, 35, 60, 70, 90, 65],
             borderColor: "#f59e0b",
             backgroundColor: "rgba(245,158,11,0.2)",
             fill: true,
@@ -288,27 +108,9 @@
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: { position: "bottom" }
-        },
-        scales: {
-          y: { beginAtZero: true }
-        }
+        plugins: { legend: { position: "bottom" } },
+        scales: { y: { beginAtZero: true } }
       }
-    });
-
-    // 🔸 Burger Menu Toggle
-    const burger = document.getElementById("burger");
-    const sidebar = document.getElementById("sidebar");
-    burger.addEventListener("click", () => {
-      burger.classList.toggle("active");
-      sidebar.classList.toggle("hidden");
-    });
-
-    // 🔸 Logout
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      localStorage.removeItem("adminLoggedIn");
-      window.location.href = "admin-login.html";
     });
   </script>
 </body>

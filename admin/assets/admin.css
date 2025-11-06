@@ -1,132 +1,196 @@
+/* === GLOBAL STYLE === */
 body {
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #eef2ff, #fef6ff);
-  color: #1f2937;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #eef2ff, #faf5ff);
+  color: #1e293b;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
-/* Login page */
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
+h1, h2, h3 {
+  margin: 0;
+  color: #1e293b;
 }
-.login-box {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 340px;
-  width: 100%;
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
-.login-box input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-}
-.login-box button {
-  background: linear-gradient(90deg, #6366f1, #a855f7);
+
+/* === HEADER === */
+.admin-header {
+  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
   color: white;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.admin-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.admin-header nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-link {
+  color: white;
+  opacity: 0.9;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 1;
+}
+
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.logout-btn {
+  background: rgba(255, 255, 255, 0.15);
   border: none;
+  color: white;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* === MAIN PAGE === */
+.admin-page {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.admin-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* === SEARCH & BUTTONS === */
+.admin-actions-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+#searchUser {
+  flex: 1;
   padding: 10px 14px;
   border-radius: 8px;
-  width: 100%;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.login-box button:hover {
-  opacity: 0.9;
-}
-.error-msg {
-  color: #dc2626;
-  font-size: 0.9rem;
-}
-
-/* Dashboard */
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #4f46e5;
-  color: white;
-  padding: 1rem 2rem;
-}
-.logout-btn {
-  background: #f87171;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-}
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  padding: 2rem;
-}
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-/* --- Users Page --- */
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-}
-
-.admin-table th, .admin-table td {
-  border-bottom: 1px solid #e5e7eb;
-  padding: 10px;
-  text-align: left;
-}
-
-.admin-table th {
-  background: #f9fafb;
-  font-weight: 600;
-}
-
-.admin-table tr:hover {
-  background: #f3f4f6;
-}
-
-.btn-edit, .btn-delete {
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  color: white;
-  font-size: 0.8rem;
-}
-.btn-edit {
-  background: #3b82f6;
-}
-.btn-delete {
-  background: #ef4444;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  background: #f8fafc;
+  color: #334155;
 }
 
 .btn-export {
-  background: #10b981;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
   border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 16px;
   cursor: pointer;
+  transition: 0.3s;
 }
+
 .btn-export:hover {
-  opacity: 0.9;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
 }
-/* --- Roles --- */
+
+/* === TABLE === */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.admin-table th {
+  background: #f1f5f9;
+  color: #334155;
+  text-align: left;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+}
+
+.admin-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.admin-table tr:hover {
+  background: #f9fafb;
+}
+
+/* === BUTTONS IN TABLE === */
+.btn-edit, .btn-delete {
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 10px;
+  transition: 0.3s;
+}
+
+.btn-edit {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.btn-edit:hover {
+  background: #c7d2fe;
+}
+
+.btn-delete {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-delete:hover {
+  background: #fecaca;
+}
+
+/* === ROLES BADGE === */
 .role-badge {
   display: inline-block;
   padding: 4px 10px;
@@ -135,10 +199,39 @@ body {
   font-weight: 600;
   color: white;
   text-align: center;
+  letter-spacing: 0.3px;
 }
+
 .role-admin {
-  background: #6366f1; /* violet */
+  background: #7c3aed; /* violet DAYLIFE */
+  box-shadow: 0 0 6px rgba(124, 58, 237, 0.3);
 }
+
 .role-user {
   background: #10b981; /* vert */
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .admin-actions-row {
+    flex-direction: column;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .btn-edit, .btn-delete {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
 }

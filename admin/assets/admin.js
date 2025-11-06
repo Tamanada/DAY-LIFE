@@ -61,18 +61,24 @@ const users = [
       .filter(u => u.name.toLowerCase().includes(filter) || u.email.toLowerCase().includes(filter))
       .forEach(u => {
         const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${u.name}</td>
-          <td>${u.email}</td>
-          <td>${u.country}</td>
-          <td>${u.sex}</td>
-          <td>${u.days}</td>
-          <td>${u.stars}</td>
-          <td>
-            <button class="btn-edit">Modifier</button>
-            <button class="btn-delete">Supprimer</button>
-          </td>
-        `;
+      row.innerHTML = `
+  <td>${u.name}</td>
+  <td>${u.email}</td>
+  <td>${u.country}</td>
+  <td>${u.sex}</td>
+  <td>
+    <span class="role-badge ${u.role === "Admin" ? "role-admin" : "role-user"}">
+      ${u.role}
+    </span>
+  </td>
+  <td>${u.days}</td>
+  <td>${u.stars}</td>
+  <td>
+    <button class="btn-edit">Modifier</button>
+    <button class="btn-delete">Supprimer</button>
+  </td>
+`;
+
         table.appendChild(row);
       });
   }

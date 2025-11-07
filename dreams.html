@@ -4,61 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAYLIFE — Dreams</title>
-  <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="assets/nav.css" />
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="topbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="DAYLIFE Logo" />
-      <span>DAYLIFE</span>
-    </div>
-    <nav class="desktop-nav">
-      <a href="home.html">🏠 Home</a>
-      <a href="dreams.html" class="active">💭 Dreams</a>
-      <a href="reflections.html">🪞 Reflections</a>
-      <a href="profile.html">👤 Profile</a>
-    </nav>
-  </header>
-
-  <!-- MAIN CONTENT -->
   <main class="page">
-    <section class="dreams">
-      <h1>💭 Your Dreams</h1>
+    <section class="content" style="padding:20px;">
+      <h2>💭 Your Dreams</h2>
       <p>Turn your days into dreams, and your dreams into days.</p>
-
-      <div class="dreams-grid">
-        <div class="dream-card">
-          <h3>🏝️ Travel to Koh Phangan</h3>
-          <p>Status: <span class="status in-progress">In progress</span></p>
-          <small>Goal date: Dec 31, 2025</small>
-        </div>
-
-        <div class="dream-card">
-          <h3>📘 Write my book</h3>
-          <p>Status: <span class="status planned">Planned</span></p>
-          <small>Goal date: March 1, 2026</small>
-        </div>
-
-        <div class="dream-card">
-          <h3>💪 Become financially free</h3>
-          <p>Status: <span class="status completed">Completed</span></p>
-          <small>Goal reached: Aug 20, 2025</small>
-        </div>
-      </div>
-
-      <button class="cta" onclick="alert('Feature coming soon!')">
-        + Add a new dream
-      </button>
+      <ul>
+        <li>🌴 Travel to Koh Phangan — <b>In progress</b></li>
+        <li>📖 Write my book — <b>Planned</b></li>
+        <li>💪 Become financially free — <b>Completed</b></li>
+      </ul>
     </section>
   </main>
 
-  <!-- MOBILE NAVIGATION -->
   <footer id="mobileNav"></footer>
   <script src="assets/nav.js"></script>
-  <script>
-    createNavBar("dreams");
-  </script>
+  <script>createNavBar("dreams");</script>
 </body>
 </html>

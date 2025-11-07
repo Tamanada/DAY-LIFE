@@ -4,56 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAYLIFE — Home</title>
-  <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="assets/nav.css" />
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="topbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="DAYLIFE Logo" />
-      <span>DAYLIFE</span>
-    </div>
-    <nav class="desktop-nav">
-      <a href="home.html" class="active">🏠 Home</a>
-      <a href="dreams.html">💭 Dreams</a>
-      <a href="reflections.html">🪞 Reflections</a>
-      <a href="profile.html">👤 Profile</a>
-    </nav>
-  </header>
-
-  <!-- MAIN CONTENT -->
   <main class="page">
-    <section class="welcome">
-      <h1>🌕 Welcome to DAYLIFE</h1>
+    <section class="content" style="padding:20px;">
+      <h2>🌕 Welcome back to DAYLIFE</h2>
       <p>Every day counts. Let’s make yours shine.</p>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h2>⭐ 25</h2>
-          <p>Stars earned</p>
-        </div>
-        <div class="stat-card">
-          <h2>💭 3</h2>
-          <p>Dreams in progress</p>
-        </div>
-        <div class="stat-card">
-          <h2>🪞 5</h2>
-          <p>Reflections written</p>
-        </div>
-      </div>
-
-      <button class="cta" onclick="window.location.href='dreams.html'">
-        Start dreaming ✨
-      </button>
+      <p>⭐ <strong>25</strong> Stars earned</p>
+      <p>💭 <strong>3</strong> Dreams in progress</p>
+      <p>🪞 <strong>5</strong> Reflections written</p>
     </section>
   </main>
 
-  <!-- MOBILE NAVIGATION -->
   <footer id="mobileNav"></footer>
   <script src="assets/nav.js"></script>
-  <script>
-    createNavBar("home");
-  </script>
+  <script>createNavBar("home");</script>
 </body>
 </html>

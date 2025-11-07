@@ -1,36 +1,54 @@
+:root {
+  --text: #475569;
+  --violet: #7c3aed;
+  --violet-light: #ede9fe;
+  --pink-light: #fce7f3;
+  --bg: #ffffff;
+  --border: #e5e7eb;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: linear-gradient(180deg, #f9fafb, #fff);
+  color: var(--text);
+  padding-bottom: 80px;
+}
+
+/* Barre de navigation */
 .mobile-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid #e5e7eb;
   padding: 8px 0;
   z-index: 999;
 }
 
 .mobile-nav a {
   text-decoration: none;
-  color: #475569; /* gris bleuté */
+  color: var(--text);
   font-size: 13px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  transition: 0.3s;
   border-radius: 16px;
   padding: 6px 12px;
+  transition: 0.3s;
 }
 
 .mobile-nav a.active {
-  background: linear-gradient(90deg, #ede9fe, #fce7f3); /* violet → rose clair */
-  color: #7c3aed; /* violet BASE44 */
+  background: linear-gradient(90deg, var(--violet-light), var(--pink-light));
+  color: var(--violet);
 }
 
 .mobile-nav a.active svg {
-  stroke: #7c3aed;
+  stroke: var(--violet);
 }
 
 .mobile-nav svg {
@@ -39,8 +57,18 @@
   stroke: currentColor;
 }
 
+/* Desktop */
 @media (min-width: 768px) {
   .mobile-nav {
-    display: none;
+    position: fixed;
+    top: 0;
+    bottom: auto;
+    border-top: none;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  body {
+    padding-top: 80px;
+    padding-bottom: 0;
   }
 }

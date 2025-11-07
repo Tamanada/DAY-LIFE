@@ -1,326 +1,282 @@
 // assets/lang.js
-// Simple i18n system with 12 languages
+// Gestion multilingue DAYLIFE (12 langues)
 
-const DAYLIFE_LANGS = [
-  "en", "fr", "es", "pt", "de", "it",
-  "nl", "sv", "pl", "ru", "hi", "th",
-];
+// Langues supportées
+const DAYLIFE_LANGS = ["en", "fr", "es", "pt", "de", "it", "ar", "hi", "zh", "ja", "th", "my"];
 
+// Dictionnaire des traductions
 const translations = {
   en: {
     langName: "English",
-    nav: {
-      home: "Home",
-      dreams: "Dreams",
-      team: "Team",
-      profile: "Profile",
-      language: "Language",
-    },
-    home: {
-      heroTitle: "Welcome back to DAYLIFE",
-      heroSubtitle: "Every day counts. Let’s make yours shine.",
-      heroBody:
-        "You have a limited number of days. Use them to build a life you are proud of – and enjoy every step of the way.",
-      statsStars: "Stars earned",
-      statsDreams: "Dreams in progress",
-      statsMilestones: "Milestones completed",
-      lifeLabel: "You are living day",
-      quoteLabel: "TODAY'S INSPIRATION",
-      quoteText: "You are your own miracle.",
-      quoteSub: "Turn your days into dreams, and your dreams into days.",
-      blankLine: "Today is a blank page — write something that matters.",
-      howToTitle: "How to Earn Stars",
-      howToSub: "Every action counts towards your journey.",
-      howItems: {
-        login: "Daily login",
-        addDream: "Add a dream or goal",
-        completeDream: "Complete a dream",
-        addMilestone: "Complete a milestone",
-        addReflection: "Add a reflection",
-        streak: "7-day streak bonus",
-        referral: "Invite a friend (referral)",
-      },
-    },
-    dreams: {
-      title: "Your Dreams",
-      subtitle: "Turn your days into dreams, and your dreams into days.",
-      addDream: "Add Dream",
-      editDream: "Edit Dream",
-      dreamTitleLabel: "Dream title",
-      dreamTitlePlaceholder: "e.g. Travel to Koh Phangan",
-      dreamDescLabel: "Description",
-      dreamDateLabel: "Target date",
-      dreamColorLabel: "Card color",
-      statusInProgress: "In progress",
-      statusPlanned: "Planned",
-      statusCompleted: "Completed",
-      save: "Save",
-      cancel: "Cancel",
-      deleteDream: "Delete dream",
-      daysLeft: "days left",
-      milestonesTitle: "Milestones",
-      addMilestone: "Add milestone",
-      milestoneTitleLabel: "Milestone title",
-      milestoneTitlePlaceholder: "e.g. Buy plane ticket",
-      markCompleted: "Mark as completed",
-      celebrationTitle: "Dream completed! 🎉",
-      celebrationAskVerify: "Do you want your friends to verify this dream?",
-      yes: "Yes",
-      no: "No",
-    },
-    team: {
-      title: "Your Team",
-      subtitle:
-        "Friends who support your dreams and can verify your achievements.",
-      addFriend: "Add friend",
-      friendNameLabel: "Friend name",
-      friendHandleLabel: "Telegram @username (optional)",
-      save: "Save",
-      cancel: "Cancel",
-      empty: "No friends yet. Invite some dreamers!",
-    },
-    profile: {
-      title: "Profile",
-      subtitle: "Your journey at a glance.",
-      statsStars: "Stars",
-      statsActiveDreams: "Active dreams",
-      statsMilestones: "Milestones",
-      shareTitle: "Share & Earn Stars",
-      shareText: "Invite friends and earn +5 ⭐ for each friend who joins!",
-      friendsJoined: "Friends joined",
-      starsEarned: "Stars earned",
-      referralLink: "Your referral link",
-      copy: "Copy",
-      copied: "Copied!",
-      shareButton: "Share with friends",
-      anonymousMode: "Anonymous mode",
-      anonymousHelper:
-        "When enabled, your name and photo are hidden in public leaderboards and shares.",
-      settingsTitle: "Settings",
-      displayName: "Display name",
-      email: "Email",
-      dob: "Date of birth",
-      dobHelper: "Used to calculate your life journey.",
-      sex: "Sex",
-      male: "Male",
-      female: "Female",
-      country: "Country of birth",
-      countryHelper:
-        "Used to adjust life expectancy based on statistics.",
-      lifeCalc: "Life calculation method",
-      lifeMode30000: "30 000 days (default)",
-      lifeModeReal: "Real (based on my profile)",
-      theme: "Theme",
-      themeLight: "Light (recommended)",
-      themeDark: "Dark",
-      themeLunar: "Lunar",
-      logout: "Log out",
-      profilePhoto: "Profile photo",
-      changePhoto: "Change",
-      uploadPhoto: "Upload a photo",
-      generatePhoto: "Generate with AI",
-    },
-    info: {
-      title: "News & Challenges",
-      subtitle: "Discover new features and global challenges.",
-    },
+
+    // Navigation
+    "nav.home": "Home",
+    "nav.dreams": "Dreams",
+    "nav.team": "Team",
+    "nav.profile": "Profile",
+
+    // Home
+    "home.heroTitle": "Welcome back to DAYLIFE",
+    "home.heroSubtitle": "Every day counts. Let’s make yours shine.",
+    "home.heroBody":
+      "You have a limited number of days. Use them to build a life you are proud of – and enjoy every step of the way.",
+    "home.stat.stars": "Stars earned",
+    "home.stat.dreams": "Dreams in progress",
+    "home.stat.reflections": "Reflections written",
+    "home.life.label": "You are living day",
+    "home.quote.label": "TODAY'S INSPIRATION",
+    "home.quote.text": "You are your own miracle.",
+    "home.quote.sub": "Turn your days into dreams, and your dreams into days.",
+    "home.blankline": "Today is a blank page — write something that matters.",
+    "home.howto.title": "How to Earn Stars",
+    "home.howto.subtitle": "Every action counts towards your journey.",
+
+    // Dreams
+    "dreams.title": "Your Dreams",
+    "dreams.subtitle": "Turn your days into dreams, and your dreams into days.",
+
+    // Team
+    "team.title": "Your Circle",
+    "team.subtitle": "Friends who walk the journey with you.",
+
+    // Profile
+    "profile.title": "Profile",
+    "profile.subtitle": "Your journey at a glance.",
+    "profile.stats.stars": "Stars",
+    "profile.stats.activeDreams": "Active dreams",
+    "profile.stats.reflections": "Reflections",
+    "profile.referral.title": "Share & Earn Stars",
+    "profile.referral.subtitle": "Invite friends and earn +5 ⭐ for each one who joins.",
+    "profile.settings.title": "Settings",
+    "profile.settings.displayName": "Display name",
+    "profile.settings.email": "Email",
+    "profile.settings.birthdate": "Date of birth",
+    "profile.settings.sex": "Sex",
+    "profile.settings.country": "Country of birth",
+    "profile.settings.lifeMethod": "Life calculation method",
+    "profile.settings.lifeFixed": "30,000 days (default)",
+    "profile.settings.lifeReal": "Real (based on my profile)",
+    "profile.settings.theme": "Theme",
+    "profile.settings.logout": "Log out",
+
+    // Info page
+    "info.title": "DAYLIFE Updates",
+    "info.subtitle": "New features, challenges and news.",
+    "info.section.todayUpdate": "Today’s update",
+    "info.section.challenge": "Challenge of the month",
+    "info.section.topDreamers": "Top dreamers",
+    "info.section.news": "News & links",
   },
 
-  // ---- French ----
   fr: {
     langName: "Français",
-    nav: {
-      home: "Accueil",
-      dreams: "Rêves",
-      team: "Équipe",
-      profile: "Profil",
-      language: "Langue",
-    },
-    home: {
-      heroTitle: "Bon retour sur DAYLIFE",
-      heroSubtitle: "Chaque jour compte. Fais briller le tien.",
-      heroBody:
-        "Tu as un nombre limité de jours. Utilise-les pour créer une vie dont tu es fier, et savoure chaque étape du voyage.",
-      statsStars: "Étoiles gagnées",
-      statsDreams: "Rêves en cours",
-      statsMilestones: "Jalons accomplis",
-      lifeLabel: "Tu vis le jour",
-      quoteLabel: "INSPIRATION DU JOUR",
-      quoteText: "Tu es ton propre miracle.",
-      quoteSub:
-        "Transforme tes jours en rêves, et tes rêves en jours.",
-      blankLine:
-        "Aujourd’hui est une page blanche — écris quelque chose qui compte.",
-      howToTitle: "Comment gagner des étoiles",
-      howToSub: "Chaque action compte dans ton parcours.",
-      howItems: {
-        login: "Connexion quotidienne",
-        addDream: "Ajouter un rêve ou objectif",
-        completeDream: "Terminer un rêve",
-        addMilestone: "Compléter un jalon",
-        addReflection: "Ajouter une réflexion",
-        streak: "Bonus de série de 7 jours",
-        referral: "Inviter un ami (parrainage)",
-      },
-    },
-    dreams: {
-      title: "Tes rêves",
-      subtitle:
-        "Transforme tes jours en rêves, et tes rêves en jours.",
-      addDream: "Ajouter un rêve",
-      editDream: "Modifier le rêve",
-      dreamTitleLabel: "Titre du rêve",
-      dreamTitlePlaceholder: "ex. Voyager à Koh Phangan",
-      dreamDescLabel: "Description",
-      dreamDateLabel: "Date cible",
-      dreamColorLabel: "Couleur de la carte",
-      statusInProgress: "En cours",
-      statusPlanned: "Planifié",
-      statusCompleted: "Terminé",
-      save: "Enregistrer",
-      cancel: "Annuler",
-      deleteDream: "Supprimer le rêve",
-      daysLeft: "jours restants",
-      milestonesTitle: "Jalons",
-      addMilestone: "Ajouter un jalon",
-      milestoneTitleLabel: "Titre du jalon",
-      milestoneTitlePlaceholder: "ex. Acheter le billet d’avion",
-      markCompleted: "Marquer comme complété",
-      celebrationTitle: "Rêve réalisé ! 🎉",
-      celebrationAskVerify:
-        "Veux-tu que tes amis vérifient ce rêve ?",
-      yes: "Oui",
-      no: "Non",
-    },
-    team: {
-      title: "Ton équipe",
-      subtitle:
-        "Les amis qui soutiennent tes rêves et peuvent les vérifier.",
-      addFriend: "Ajouter un ami",
-      friendNameLabel: "Nom de l’ami",
-      friendHandleLabel: "Pseudo Telegram @ (optionnel)",
-      save: "Enregistrer",
-      cancel: "Annuler",
-      empty: "Pas encore d’amis. Invite quelques rêveurs !",
-    },
-    profile: {
-      title: "Profil",
-      subtitle: "Ton parcours en un coup d’œil.",
-      statsStars: "Étoiles",
-      statsActiveDreams: "Rêves actifs",
-      statsMilestones: "Jalons",
-      shareTitle: "Partager & gagner des étoiles",
-      shareText:
-        "Invite des amis et gagne +5 ⭐ pour chaque ami qui rejoint !",
-      friendsJoined: "Amis rejoints",
-      starsEarned: "Étoiles gagnées",
-      referralLink: "Ton lien de parrainage",
-      copy: "Copier",
-      copied: "Copié !",
-      shareButton: "Partager avec des amis",
-      anonymousMode: "Mode anonyme",
-      anonymousHelper:
-        "Lorsque ce mode est activé, ton nom et ta photo sont masqués dans les classements publics et les partages.",
-      settingsTitle: "Paramètres",
-      displayName: "Nom affiché",
-      email: "Email",
-      dob: "Date de naissance",
-      dobHelper:
-        "Utilisée pour calculer ton parcours de vie.",
-      sex: "Sexe",
-      male: "Homme",
-      female: "Femme",
-      country: "Pays de naissance",
-      countryHelper:
-        "Utilisé pour ajuster l’espérance de vie selon les statistiques.",
-      lifeCalc: "Méthode de calcul de vie",
-      lifeMode30000: "30 000 jours (par défaut)",
-      lifeModeReal: "Réel (selon mon profil)",
-      theme: "Thème",
-      themeLight: "Clair (recommandé)",
-      themeDark: "Sombre",
-      themeLunar: "Lunaire",
-      logout: "Se déconnecter",
-      profilePhoto: "Photo de profil",
-      changePhoto: "Changer",
-      uploadPhoto: "Téléverser une photo",
-      generatePhoto: "Générer avec l’IA",
-    },
-    info: {
-      title: "Nouvelles & Défis",
-      subtitle:
-        "Découvre les nouvelles fonctionnalités et les défis globaux.",
-    },
+
+    // Navigation
+    "nav.home": "Accueil",
+    "nav.dreams": "Rêves",
+    "nav.team": "Équipe",
+    "nav.profile": "Profil",
+
+    // Home
+    "home.heroTitle": "Bienvenue sur DAYLIFE",
+    "home.heroSubtitle": "Chaque jour compte. Fais briller le tien.",
+    "home.heroBody":
+      "Tu as un nombre de jours limité. Utilise-les pour construire une vie dont tu es fier, et savoure chaque étape.",
+    "home.stat.stars": "Étoiles gagnées",
+    "home.stat.dreams": "Rêves en cours",
+    "home.stat.reflections": "Réflexions écrites",
+    "home.life.label": "Tu vis le jour",
+    "home.quote.label": "INSPIRATION DU JOUR",
+    "home.quote.text": "Tu es ton propre miracle.",
+    "home.quote.sub": "Transforme tes jours en rêves, et tes rêves en jours.",
+    "home.blankline": "Aujourd’hui est une page blanche — écris quelque chose qui compte.",
+    "home.howto.title": "Comment gagner des étoiles",
+    "home.howto.subtitle": "Chaque action compte dans ton voyage.",
+
+    // Dreams
+    "dreams.title": "Tes rêves",
+    "dreams.subtitle": "Transforme tes jours en rêves, et tes rêves en jours.",
+
+    // Team
+    "team.title": "Ton cercle",
+    "team.subtitle": "Les amis qui cheminent avec toi.",
+
+    // Profile
+    "profile.title": "Profil",
+    "profile.subtitle": "Ton parcours en un coup d’œil.",
+    "profile.stats.stars": "Étoiles",
+    "profile.stats.activeDreams": "Rêves actifs",
+    "profile.stats.reflections": "Réflexions",
+    "profile.referral.title": "Partage & gagne des étoiles",
+    "profile.referral.subtitle":
+      "Invite des amis et gagne +5 ⭐ pour chaque ami qui rejoint.",
+    "profile.settings.title": "Paramètres",
+    "profile.settings.displayName": "Nom affiché",
+    "profile.settings.email": "Email",
+    "profile.settings.birthdate": "Date de naissance",
+    "profile.settings.sex": "Sexe",
+    "profile.settings.country": "Pays de naissance",
+    "profile.settings.lifeMethod": "Méthode de calcul de vie",
+    "profile.settings.lifeFixed": "30 000 jours (par défaut)",
+    "profile.settings.lifeReal": "Réel (selon mon profil)",
+    "profile.settings.theme": "Thème",
+    "profile.settings.logout": "Se déconnecter",
+
+    // Info page
+    "info.title": "Actualités DAYLIFE",
+    "info.subtitle": "Nouvelles fonctions, défis et annonces.",
+    "info.section.todayUpdate": "Mise à jour du jour",
+    "info.section.challenge": "Défi du mois",
+    "info.section.topDreamers": "Top des rêveurs",
+    "info.section.news": "Infos & liens",
+  },
+
+  // Les autres langues : pour l’instant on traduit surtout la navigation.
+  // Le reste pourra rester en anglais (fallback), c’est OK pour une V1.
+
+  es: {
+    langName: "Español",
+    "nav.home": "Inicio",
+    "nav.dreams": "Sueños",
+    "nav.team": "Equipo",
+    "nav.profile": "Perfil",
+  },
+  pt: {
+    langName: "Português",
+    "nav.home": "Início",
+    "nav.dreams": "Sonhos",
+    "nav.team": "Equipe",
+    "nav.profile": "Perfil",
+  },
+  de: {
+    langName: "Deutsch",
+    "nav.home": "Start",
+    "nav.dreams": "Träume",
+    "nav.team": "Team",
+    "nav.profile": "Profil",
+  },
+  it: {
+    langName: "Italiano",
+    "nav.home": "Home",
+    "nav.dreams": "Sogni",
+    "nav.team": "Team",
+    "nav.profile": "Profilo",
+  },
+  ar: {
+    langName: "العربية",
+    "nav.home": "الرئيسية",
+    "nav.dreams": "الأحلام",
+    "nav.team": "الفريق",
+    "nav.profile": "الملف الشخصي",
+  },
+  hi: {
+    langName: "हिन्दी",
+    "nav.home": "होम",
+    "nav.dreams": "सपने",
+    "nav.team": "टीम",
+    "nav.profile": "प्रोफ़ाइल",
+  },
+  zh: {
+    langName: "中文",
+    "nav.home": "首页",
+    "nav.dreams": "梦想",
+    "nav.team": "团队",
+    "nav.profile": "个人资料",
+  },
+  ja: {
+    langName: "日本語",
+    "nav.home": "ホーム",
+    "nav.dreams": "夢",
+    "nav.team": "チーム",
+    "nav.profile": "プロフィール",
+  },
+  th: {
+    langName: "ไทย",
+    "nav.home": "หน้าแรก",
+    "nav.dreams": "ความฝัน",
+    "nav.team": "ทีม",
+    "nav.profile": "โปรไฟล์",
+  },
+  my: {
+    langName: "မြန်မာ",
+    "nav.home": "ပင်မ",
+    "nav.dreams": "အိပ်မက်များ",
+    "nav.team": "အဖွဲ့",
+    "nav.profile": "ကိုယ်ရေးရာဇဝင်",
   },
 };
 
-// For other languages, we simply reuse English as fallback
-["es", "pt", "de", "it", "nl", "sv", "pl", "ru", "hi", "th"].forEach((lng) => {
-  if (!translations[lng]) {
-    translations[lng] = { ...translations.en, langName: lng };
-  }
-});
+// Petit helper sécurisé
+function getNested(obj, key) {
+  return key.split(".").reduce((o, part) => (o && o[part] != null ? o[part] : null), obj);
+}
 
-(function () {
-  let currentLang = "en";
+// Objet global I18n
+const DaylifeI18n = {
+  current: null,
 
-  function detectLang() {
+  detectLang() {
+    try {
+      const navLang =
+        (navigator.language || navigator.userLanguage || "en").toLowerCase();
+      const base = navLang.split("-")[0];
+      return DAYLIFE_LANGS.includes(base) ? base : "en";
+    } catch (e) {
+      return "en";
+    }
+  },
+
+  getLang() {
+    if (this.current) return this.current;
     const stored = localStorage.getItem("daylife_lang");
-    if (stored && DAYLIFE_LANGS.includes(stored)) return stored;
-
-    const browser =
-      (navigator.language || "en").split("-")[0].toLowerCase();
-    if (DAYLIFE_LANGS.includes(browser)) return browser;
-    return "en";
-  }
-
-  function t(key) {
-    const parts = key.split(".");
-    let obj = translations[currentLang] || translations.en;
-    for (const p of parts) {
-      obj = obj && obj[p];
+    if (stored && DAYLIFE_LANGS.includes(stored)) {
+      this.current = stored;
+      return stored;
     }
-    if (!obj) {
-      // fallback to en
-      obj = translations.en;
-      for (const p of parts) {
-        obj = obj && obj[p];
-      }
-    }
-    return obj || key;
-  }
+    const detected = this.detectLang();
+    this.current = detected;
+    return detected;
+  },
 
-  function applyTranslations() {
+  setLang(lang) {
+    if (!DAYLIFE_LANGS.includes(lang)) lang = "en";
+    this.current = lang;
+    localStorage.setItem("daylife_lang", lang);
+    this.applyTranslations();
+  },
+
+  t(key) {
+    const lang = this.getLang();
+    const dict = translations[lang] || translations["en"] || {};
+    const value = getNested(dict, key) || dict[key];
+    if (value) return value;
+    // fallback anglais
+    const fallback = (translations["en"] && translations["en"][key]) || key;
+    return fallback;
+  },
+
+  applyTranslations() {
+    const lang = this.getLang();
+    const dict = translations[lang] || {};
+    const fallbackDict = translations["en"] || {};
+
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
-      const value = t(key);
-      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-        if (el.hasAttribute("placeholder")) {
-          el.placeholder = value;
-        } else {
-          el.value = value;
-        }
-      } else {
-        el.textContent = value;
+      if (!key) return;
+      const val = dict[key] || fallbackDict[key];
+      if (val) {
+        el.textContent = val;
       }
     });
-  }
+  },
+};
 
-  function setLang(lang) {
-    if (!DAYLIFE_LANGS.includes(lang)) lang = "en";
-    currentLang = lang;
-    localStorage.setItem("daylife_lang", lang);
-    applyTranslations();
-  }
+// Exposer globalement
+window.DAYLIFE_LANGS = DAYLIFE_LANGS;
+window.translations = translations;
+window.DaylifeI18n = DaylifeI18n;
 
-  function getLang() {
-    return currentLang;
-  }
-
-  window.DaylifeI18n = { t, setLang, getLang, detectLang, applyTranslations };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    currentLang = detectLang();
-    applyTranslations();
-  });
-})();
+// Appliquer au chargement initial
+document.addEventListener("DOMContentLoaded", () => {
+  DaylifeI18n.applyTranslations();
+});

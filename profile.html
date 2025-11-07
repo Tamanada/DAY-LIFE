@@ -8,37 +8,38 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="DAYLIFE Logo" />
-      <span>DAYLIFE</span>
-    </div>
+    <div class="logo"><span>DAYLIFE</span></div>
     <nav class="desktop-nav">
-      <a href="home.html" id="nav-home"></a>
-      <a href="dreams.html" id="nav-dreams"></a>
-      <a href="reflections.html" id="nav-reflections"></a>
-      <a href="profile.html" id="nav-profile"></a>
+      <a href="home.html" id="navHome"></a>
+      <a href="dreams.html" id="navDreams"></a>
+      <a href="reflections.html" id="navReflections"></a>
+      <a href="profile.html" id="navProfile"></a>
     </nav>
   </header>
 
-  <main class="profile-page">
-    <h1>👤 <span id="title-profile"></span></h1>
-    <p id="profile-sub"></p>
+  <main>
+    <h1>👤 <span id="profileTitle"></span></h1>
+    <p id="profileSubtitle"></p>
 
-    <h3>🌐 <span>Language</span></h3>
-    <select onchange="setLang(this.value)">
-      <option value="en">English</option>
-      <option value="fr">Français</option>
-      <option value="es">Español</option>
-      <option value="th">ไทย</option>
-      <option value="my">မြန်မာ</option>
-      <option value="de">Deutsch</option>
-      <option value="ru">Русский</option>
-      <option value="it">Italiano</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-      <option value="ja">日本語</option>
-      <option value="ar">العربية</option>
-    </select>
+    <div class="settings-field">
+      <label>🌐 Langue / Language</label>
+      <select onchange="setLang(this.value)">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="th">ไทย</option>
+        <option value="my">မြန်မာ</option>
+        <option value="de">Deutsch</option>
+        <option value="ru">Русский</option>
+        <option value="it">Italiano</option>
+        <option value="pt">Português</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+
+    <button onclick="alert('Logged out')">🚪 Se déconnecter</button>
   </main>
 
   <footer id="mobileNav"></footer>
@@ -46,12 +47,12 @@
   <script src="assets/nav.js"></script>
   <script>
     createNavBar("profile");
-    document.getElementById("nav-home").innerText = t("home");
-    document.getElementById("nav-dreams").innerText = t("dreams");
-    document.getElementById("nav-reflections").innerText = t("reflections");
-    document.getElementById("nav-profile").innerText = t("profile");
-    document.getElementById("title-profile").innerText = t("profile");
-    document.getElementById("profile-sub").innerText = t("subtitle");
+    document.getElementById("navHome").innerText = t("home");
+    document.getElementById("navDreams").innerText = t("dreams");
+    document.getElementById("navReflections").innerText = t("reflections");
+    document.getElementById("navProfile").innerText = t("profile");
+    document.getElementById("profileTitle").innerText = t("profile");
+    document.getElementById("profileSubtitle").innerText = t("subtitle");
   </script>
 </body>
 </html>

@@ -21,19 +21,20 @@
   </header>
 
   <main class="splash">
-    <h1 class="home-greeting-title"></h1>
-    <p class="home-greeting-sub"></p>
+    <h1>🌕 <span id="welcomeTitle"></span></h1>
+    <p id="subtitle"></p>
 
     <div class="stats">
-      <p>⭐ <span id="starsCount">25</span> <span id="starsLabel"></span></p>
-      <p>💭 <span id="dreamsCount">3</span> <span id="dreamsLabel"></span></p>
-      <p>💎 <span id="reflectionsCount">5</span> <span id="reflectionsLabel"></span></p>
+      <p>⭐ 25 <span id="starsLabel"></span></p>
+      <p>💭 3 <span id="dreamsLabel"></span></p>
+      <p>💎 5 <span id="reflectionsLabel"></span></p>
     </div>
 
     <button onclick="window.location.href='dreams.html'">✨ Start dreaming</button>
   </main>
 
   <footer id="mobileNav"></footer>
+
   <script src="assets/lang.js"></script>
   <script src="assets/nav.js"></script>
   <script>
@@ -42,8 +43,9 @@
     document.getElementById("navDreams").innerText = t("dreams");
     document.getElementById("navReflections").innerText = t("reflections");
     document.getElementById("navProfile").innerText = t("profile");
-    document.querySelector(".home-greeting-title").innerText = t("welcome");
-    document.querySelector(".home-greeting-sub").innerText = t("subtitle");
+
+    document.getElementById("welcomeTitle").innerText = t("welcome");
+    document.getElementById("subtitle").innerText = t("subtitle");
     document.getElementById("starsLabel").innerText = t("stars");
     document.getElementById("dreamsLabel").innerText = t("dreamsInProgress");
     document.getElementById("reflectionsLabel").innerText = t("reflectionsWritten");

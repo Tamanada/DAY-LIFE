@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="assets/nav.css" />
 </head>
 <body>
+  <!-- HEADER -->
   <header class="topbar">
     <div class="logo">
       <img src="assets/logo.png" alt="DAYLIFE Logo" />
@@ -21,32 +22,38 @@
     </nav>
   </header>
 
+  <!-- MAIN CONTENT -->
   <main class="page">
     <section class="welcome">
-      <h1>🌞 Welcome back!</h1>
-      <p>Every sunrise is a new chance to make your story brighter.</p>
+      <h1>🌕 Welcome to DAYLIFE</h1>
+      <p>Every day counts. Let’s make yours shine.</p>
 
-      <div class="stats">
+      <div class="stats-grid">
         <div class="stat-card">
-          <h2>⭐ 128</h2>
-          <p>Total Stars Earned</p>
+          <h2>⭐ 25</h2>
+          <p>Stars earned</p>
         </div>
         <div class="stat-card">
-          <h2>💭 12</h2>
-          <p>Dreams in Progress</p>
+          <h2>💭 3</h2>
+          <p>Dreams in progress</p>
         </div>
         <div class="stat-card">
-          <h2>🪞 48</h2>
-          <p>Reflections Written</p>
+          <h2>🪞 5</h2>
+          <p>Reflections written</p>
         </div>
       </div>
 
-      <button onclick="window.location.href='dreams.html'">Go to My Dreams</button>
+      <button class="cta" onclick="window.location.href='dreams.html'">
+        Start dreaming ✨
+      </button>
     </section>
   </main>
 
+  <!-- MOBILE NAVIGATION -->
   <footer id="mobileNav"></footer>
   <script src="assets/nav.js"></script>
-  <script>createNavBar("home");</script>
+  <script>
+    createNavBar("home");
+  </script>
 </body>
 </html>

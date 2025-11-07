@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAYLIFE – Team</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <!-- HEADER NAVIGATION -->
+    <header id="appHeader"></header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page">
+      <div class="page-inner">
+
+        <!-- INTRO -->
+        <section class="section team-intro">
+          <div class="section-title-row">
+            <i data-lucide="users" class="section-title-emoji"></i>
+            <div class="section-title-text" data-i18n="team.title">Your Circle</div>
+          </div>
+          <p data-i18n="team.subtitle">Friends who walk the journey with you.</p>
+        </section>
+
+        <!-- ADD FRIEND -->
+        <section class="section">
+          <button class="btn btn-primary" id="inviteFriendBtn">
+            <i data-lucide="user-plus"></i> Invite a Friend
+          </button>
+        </section>
+
+        <!-- TEAM LIST -->
+        <section class="section">
+          <div class="card">
+            <div class="section-title-row">
+              <i data-lucide="users-2"></i>
+              <div class="section-title-text">Your Dream Team</div>
+            </div>
+            <div class="team-list">
+
+              <!-- Friend Card Example -->
+              <div class="team-card">
+                <div class="team-avatar">A</div>
+                <div class="team-info">
+                  <div class="team-name">Alice</div>
+                  <div class="team-role">Dream Verifier</div>
+                </div>
+                <div class="team-actions">
+                  <button class="btn btn-outline verify-btn">
+                    <i data-lucide="check"></i> Verify
+                  </button>
+                </div>
+              </div>
+
+              <div class="team-card">
+                <div class="team-avatar">B</div>
+                <div class="team-info">
+                  <div class="team-name">Ben</div>
+                  <div class="team-role">Joined via referral</div>
+                </div>
+                <div class="team-actions">
+                  <button class="btn btn-outline disabled">
+                    <i data-lucide="check"></i> Verified
+                  </button>
+                </div>
+              </div>
+
+              <div class="team-card">
+                <div class="team-avatar">C</div>
+                <div class="team-info">
+                  <div class="team-name">Carla</div>
+                  <div class="team-role">Dream Verifier</div>
+                </div>
+                <div class="team-actions">
+                  <button class="btn btn-outline verify-btn">
+                    <i data-lucide="check"></i> Verify
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- VALIDATION STATUS -->
+        <section class="section">
+          <div class="card">
+            <div class="section-title-row">
+              <i data-lucide="shield-check"></i>
+              <div class="section-title-text">Dream Validation</div>
+            </div>
+            <p class="section-subtitle">
+              Each dream needs 3 verifications from your circle to enter the global leaderboard.
+            </p>
+
+            <div class="validation-status">
+              <div class="validation-bar">
+                <div class="validation-progress" style="width: 67%;"></div>
+              </div>
+              <p><strong>2/3 validations completed</strong></p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <footer id="bottomNav"></footer>
+  </div>
+
+  <!-- 🔗 LIBRARIES -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="assets/lang.js"></script>
+  <script src="assets/nav.js"></script>
+
+  <script>
+    createNavBar("team");
+
+    // ✅ simple example of "verify" button interaction
+    document.querySelectorAll(".verify-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.textContent = "Verified ✅";
+        btn.disabled = true;
+        alert("🌕 Thank you! Verification added (+1⭐)");
+        // Future logic: update database, add star, check if 3/3 validations reached
+      });
+    });
+  </script>
+</body>
+</html>

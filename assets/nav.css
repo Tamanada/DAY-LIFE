@@ -1,55 +1,46 @@
-.bottom-nav {
+.mobile-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   background: #fff;
-  border-top: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-around;
+  border-top: 1px solid #e5e7eb;
   padding: 8px 0;
   z-index: 999;
-  box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.05);
 }
 
-.bottom-nav a {
-  color: #475569;
+.mobile-nav a {
   text-decoration: none;
-  text-align: center;
+  color: #475569; /* gris bleuté */
   font-size: 13px;
-  flex: 1;
-  padding: 6px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  gap: 4px;
+  transition: 0.3s;
+  border-radius: 16px;
+  padding: 6px 12px;
 }
 
-.bottom-nav a svg {
-  width: 22px;
-  height: 22px;
-  stroke: #475569;
-  margin-bottom: 3px;
-  transition: all 0.3s ease;
+.mobile-nav a.active {
+  background: linear-gradient(90deg, #ede9fe, #fce7f3); /* violet → rose clair */
+  color: #7c3aed; /* violet BASE44 */
 }
 
-.bottom-nav a.active {
-  background: linear-gradient(90deg, #e9d5ff, #f0f9ff);
-  color: #1e293b;
-  font-weight: 600;
+.mobile-nav a.active svg {
+  stroke: #7c3aed;
 }
 
-.bottom-nav a.active svg {
-  stroke: #1e293b;
-}
-
-.bottom-nav a:hover {
-  background: rgba(229, 231, 235, 0.5);
+.mobile-nav svg {
+  width: 26px;
+  height: 26px;
+  stroke: currentColor;
 }
 
 @media (min-width: 768px) {
-  .bottom-nav {
+  .mobile-nav {
     display: none;
   }
 }

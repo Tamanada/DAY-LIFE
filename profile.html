@@ -1,174 +1,57 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DAYLIFE – Profil</title>
+  <title>DAYLIFE — Profile</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <header id="appHeader"></header>
+  <header class="topbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="DAYLIFE Logo" />
+      <span>DAYLIFE</span>
+    </div>
+    <nav class="desktop-nav">
+      <a href="home.html" id="nav-home"></a>
+      <a href="dreams.html" id="nav-dreams"></a>
+      <a href="reflections.html" id="nav-reflections"></a>
+      <a href="profile.html" id="nav-profile"></a>
+    </nav>
+  </header>
 
-    <main class="page">
-      <div class="page-inner">
+  <main class="profile-page">
+    <h1>👤 <span id="title-profile"></span></h1>
+    <p id="profile-sub"></p>
 
-        <section class="section">
-          <div class="section-title-row">
-            <span class="section-title-emoji">👤</span>
-            <div class="section-title-text">Profil</div>
-          </div>
-          <p class="section-subtitle">
-            Votre parcours en un coup d’œil.
-          </p>
-        </section>
+    <h3>🌐 <span>Language</span></h3>
+    <select onchange="setLang(this.value)">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="my">မြန်မာ</option>
+      <option value="de">Deutsch</option>
+      <option value="ru">Русский</option>
+      <option value="it">Italiano</option>
+      <option value="pt">Português</option>
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="ar">العربية</option>
+    </select>
+  </main>
 
-        <section class="section profile-grid">
-
-          <!-- Left column: profile + referral -->
-          <div class="profile-column">
-            <div class="profile-card">
-              <div class="profile-main">
-                <div class="profile-avatar">D</div>
-                <div>
-                  <div class="profile-name">David</div>
-                  <div class="profile-email">vous@example.com</div>
-                </div>
-              </div>
-
-              <div class="profile-stats-row">
-                <div class="profile-stat">
-                  <div class="profile-stat-label">Stars</div>
-                  <div class="profile-stat-value">0 ⭐</div>
-                </div>
-                <div class="profile-stat">
-                  <div class="profile-stat-label">Active dreams</div>
-                  <div class="profile-stat-value">0 💭</div>
-                </div>
-                <div class="profile-stat">
-                  <div class="profile-stat-label">Reflections</div>
-                  <div class="profile-stat-value">0 📘</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="referral-card">
-              <div class="referral-top">
-                <div>🔗 Share &amp; Earn Stars</div>
-                <h3>Invite friends and earn +5 ⭐</h3>
-                <p>for each friend who joins and completes setup.</p>
-              </div>
-
-              <div class="referral-tiles">
-                <div class="referral-tile">
-                  <div class="referral-tile-value">0</div>
-                  <div>Friends joined</div>
-                </div>
-                <div class="referral-tile">
-                  <div class="referral-tile-value">0</div>
-                  <div>Stars earned</div>
-                </div>
-              </div>
-
-              <div class="referral-link-row">
-                <input
-                  type="text"
-                  value="https://tamanada.github.io/DAY-LIFE-telegram-app/?ref=david"
-                  readonly
-                />
-                <button class="btn btn-outline" type="button">Copy</button>
-              </div>
-
-              <button class="btn btn-primary" type="button" style="width: 100%;">
-                Share with friends
-              </button>
-            </div>
-          </div>
-
-          <!-- Right column: settings -->
-          <div class="settings-card">
-            <div class="settings-title">Paramètres</div>
-            <div class="settings-grid">
-
-              <div class="settings-field">
-                <label>Nom affiché</label>
-                <input type="text" value="David" />
-              </div>
-
-              <div class="settings-field">
-                <label>Email</label>
-                <input type="email" placeholder="vous@example.com" />
-              </div>
-
-              <div class="settings-field">
-                <label>Date de naissance</label>
-                <input type="date" />
-                <div class="helper">
-                  Utilisée pour calculer votre parcours de vie.
-                </div>
-              </div>
-
-              <div class="settings-field">
-                <label>Sexe</label>
-                <select>
-                  <option>Homme</option>
-                  <option>Femme</option>
-                </select>
-                <div class="helper">
-                  Utilisé pour l'espérance de vie réelle.
-                </div>
-              </div>
-
-              <div class="settings-field">
-                <label>Pays de naissance</label>
-                <select>
-                  <option>France</option>
-                  <option>Thaïlande</option>
-                  <option>Canada</option>
-                  <option>Brésil</option>
-                  <option>Autre</option>
-                </select>
-                <div class="helper">
-                  Utilisé pour ajuster l'espérance de vie selon les statistiques.
-                </div>
-              </div>
-
-              <div class="settings-field">
-                <label>Méthode de calcul de vie</label>
-                <select>
-                  <option>30 000 jours (par défaut)</option>
-                  <option>Réel (selon mon profil)</option>
-                </select>
-              </div>
-
-              <div class="settings-field">
-                <label>Thème</label>
-                <select>
-                  <option>Clair (recommandé)</option>
-                  <option>Sombre</option>
-                  <option>Lunaire</option>
-                </select>
-              </div>
-
-            </div>
-
-            <div class="logout-row">
-              <button class="btn btn-outline" type="button">
-                Se déconnecter
-              </button>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </main>
-
-    <footer id="bottomNav"></footer>
-  </div>
-
+  <footer id="mobileNav"></footer>
+  <script src="assets/lang.js"></script>
   <script src="assets/nav.js"></script>
   <script>
     createNavBar("profile");
+    document.getElementById("nav-home").innerText = t("home");
+    document.getElementById("nav-dreams").innerText = t("dreams");
+    document.getElementById("nav-reflections").innerText = t("reflections");
+    document.getElementById("nav-profile").innerText = t("profile");
+    document.getElementById("title-profile").innerText = t("profile");
+    document.getElementById("profile-sub").innerText = t("subtitle");
   </script>
 </body>
 </html>

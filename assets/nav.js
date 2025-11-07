@@ -1,28 +1,55 @@
 function createNavBar(activePage) {
-  const mobileNav = document.getElementById("mobileNav");
-  if (!mobileNav) return;
+  const nav = document.getElementById("mobileNav");
+  if (!nav) return;
 
-  mobileNav.innerHTML = `
-    <nav class="bottom-nav">
-      <a href="home.html" class="${activePage === 'home' ? 'active' : ''}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5l9-7 9 7v10.5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V13H9v6.5a2 2 0 0 1-2 2H3z"/></svg>
+  nav.innerHTML = `
+    <nav class="mobile-nav">
+      <a href="home.html" class="${activePage === "home" ? "active" : ""}">
+        <div class="icon">${homeIcon()}</div>
         <span>Home</span>
       </a>
-
-      <a href="dreams.html" class="${activePage === 'dreams' ? 'active' : ''}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.536-7.536l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636"/></svg>
+      <a href="dreams.html" class="${activePage === "dreams" ? "active" : ""}">
+        <div class="icon">${targetIcon()}</div>
         <span>Dreams</span>
       </a>
-
-      <a href="reflections.html" class="${activePage === 'reflections' ? 'active' : ''}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6m-6 4h6m-6 4h4"/><circle cx="17" cy="7" r="1"/></svg>
+      <a href="reflections.html" class="${activePage === "reflections" ? "active" : ""}">
+        <div class="icon">${bookHeartIcon()}</div>
         <span>Reflections</span>
       </a>
-
-      <a href="profile.html" class="${activePage === 'profile' ? 'active' : ''}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0 1 12 0v1"/></svg>
+      <a href="profile.html" class="${activePage === "profile" ? "active" : ""}">
+        <div class="icon">${userIcon()}</div>
         <span>Profile</span>
       </a>
     </nav>
   `;
+}
+
+/* ==== SVG ICONS ==== */
+function homeIcon() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+    <polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>`;
+}
+
+function targetIcon() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <circle cx="12" cy="12" r="6"/>
+    <circle cx="12" cy="12" r="2"/>
+  </svg>`;
+}
+
+function bookHeartIcon() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v18l-8-4-8 4z"/>
+    <path d="M12 8l1.5 1.5L15 8a2 2 0 1 0-3 2 2 2 0 0 0-3-2z"/>
+  </svg>`;
+}
+
+function userIcon() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="7" r="4"/>
+    <path d="M5.5 21a8.38 8.38 0 0 1 13 0"/>
+  </svg>`;
 }

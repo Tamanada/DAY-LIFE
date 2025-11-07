@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAYLIFE — Dreams</title>
   <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/nav.css" />
 </head>
 <body>
   <header class="topbar">
@@ -20,146 +21,28 @@
     </nav>
   </header>
 
-  <main class="dreams-page">
-    <div class="header-center">
-      <h1>Your Dreams</h1>
-      <p>Turn your days into dreams, and your dreams into days.</p>
-      <button onclick="openDreamForm()">➕ Add Dream</button>
-    </div>
+  <main class="page">
+    <section class="dreams">
+      <h1>💭 My Dreams</h1>
+      <p>Every great journey begins with a dream. Add yours and make it real.</p>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <h2 id="inProgressCount">0</h2>
-        <p>In Progress</p>
-      </div>
-      <div class="stat-card">
-        <h2 id="completedCount">0</h2>
-        <p>Completed</p>
-      </div>
-      <div class="stat-card">
-        <h2 id="totalCount">0</h2>
-        <p>Total Dreams</p>
-      </div>
-    </div>
-
-    <div id="dreamList" class="dreams-grid"></div>
-
-    <!-- DREAM FORM -->
-    <div id="dreamForm" class="modal hidden">
-      <div class="modal-content">
-        <h3>Add or Edit a Dream</h3>
-        <label>Title</label>
-        <input type="text" id="dreamTitle" placeholder="My Dream..." />
-        <label>Description</label>
-        <textarea id="dreamDesc" placeholder="Why this dream matters..."></textarea>
-        <label>Deadline</label>
-        <input type="date" id="dreamDeadline" />
-        <div class="buttons">
-          <button onclick="saveDream()">Save</button>
-          <button class="cancel" onclick="closeDreamForm()">Cancel</button>
+      <div class="dream-list">
+        <div class="dream-card">
+          <h3>🏝️ Visit a tropical island</h3>
+          <p>Status: In progress</p>
+        </div>
+        <div class="dream-card">
+          <h3>📘 Publish my first book</h3>
+          <p>Status: Planned</p>
         </div>
       </div>
-    </div>
+
+      <button onclick="alert('Add dream feature coming soon!')">+ Add Dream</button>
+    </section>
   </main>
 
   <footer id="mobileNav"></footer>
   <script src="assets/nav.js"></script>
-  <script>
-    createNavBar("dreams");
-
-    let dreams = JSON.parse(localStorage.getItem("dreams")) || [];
-    let editingIndex = null;
-
-    function renderDreams() {
-      const list = document.getElementById("dreamList");
-      list.innerHTML = "";
-      let inProgress = 0, completed = 0;
-
-      dreams.forEach((dream, index) => {
-        const daysLeft = Math.ceil((new Date(dream.deadline) - new Date()) / (1000 * 60 * 60 * 24));
-        const isCompleted = dream.status === "completed";
-        if (isCompleted) completed++; else inProgress++;
-
-        const card = document.createElement("div");
-        card.className = `dream-card ${isCompleted ? "completed" : ""}`;
-        card.innerHTML = `
-          <h3>${dream.title}</h3>
-          <p>${dream.description}</p>
-          <p class="deadline">${isCompleted ? "✅ Completed" : `⏰ ${daysLeft} days left`}</p>
-          <div class="actions">
-            <button onclick="toggleStatus(${index})">${isCompleted ? "Mark In Progress" : "Complete"}</button>
-            <button onclick="editDream(${index})">Edit</button>
-            <button class="delete" onclick="deleteDream(${index})">Delete</button>
-          </div>
-        `;
-        list.appendChild(card);
-      });
-
-      document.getElementById("inProgressCount").innerText = inProgress;
-      document.getElementById("completedCount").innerText = completed;
-      document.getElementById("totalCount").innerText = dreams.length;
-      localStorage.setItem("dreams", JSON.stringify(dreams));
-    }
-
-    function openDreamForm(index = null) {
-      editingIndex = index;
-      const form = document.getElementById("dreamForm");
-      form.classList.remove("hidden");
-      if (index !== null) {
-        const d = dreams[index];
-        document.getElementById("dreamTitle").value = d.title;
-        document.getElementById("dreamDesc").value = d.description;
-        document.getElementById("dreamDeadline").value = d.deadline;
-      } else {
-        document.getElementById("dreamTitle").value = "";
-        document.getElementById("dreamDesc").value = "";
-        document.getElementById("dreamDeadline").value = "";
-      }
-    }
-
-    function closeDreamForm() {
-      document.getElementById("dreamForm").classList.add("hidden");
-    }
-
-    function saveDream() {
-      const title = document.getElementById("dreamTitle").value.trim();
-      const desc = document.getElementById("dreamDesc").value.trim();
-      const deadline = document.getElementById("dreamDeadline").value;
-
-      if (!title || !deadline) {
-        alert("Please fill in title and deadline");
-        return;
-      }
-
-      const newDream = { title, description: desc, deadline, status: "in_progress" };
-      if (editingIndex !== null) {
-        dreams[editingIndex] = newDream;
-      } else {
-        dreams.push(newDream);
-      }
-      localStorage.setItem("dreams", JSON.stringify(dreams));
-      closeDreamForm();
-      renderDreams();
-    }
-
-    function editDream(i) {
-      openDreamForm(i);
-    }
-
-    function deleteDream(i) {
-      if (confirm("Delete this dream?")) {
-        dreams.splice(i, 1);
-        localStorage.setItem("dreams", JSON.stringify(dreams));
-        renderDreams();
-      }
-    }
-
-    function toggleStatus(i) {
-      dreams[i].status = dreams[i].status === "completed" ? "in_progress" : "completed";
-      renderDreams();
-    }
-
-    renderDreams();
-  </script>
+  <script>createNavBar("dreams");</script>
 </body>
 </html>

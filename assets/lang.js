@@ -1,189 +1,223 @@
-// 🌍 DAYLIFE Translations (12 languages)
+/* assets/lang.js
+   PHASE 1 + PHASE 2 + PHASE 3
+   Auto-detect browser language + manual selector
+*/
+
+const LANGS = ["en","fr","es","de","it","pt","ru","th","zh","ja","ko","ar"];
+
 const translations = {
   en: {
-    home: "Home",
-    dreams: "Dreams",
-    reflections: "Reflections",
-    profile: "Profile",
-    welcome: "Welcome back to DAYLIFE",
-    subtitle: "Every day counts. Let’s make yours shine.",
-    stars: "Stars earned",
-    dreamsInProgress: "Dreams in progress",
-    reflectionsWritten: "Reflections written",
+    appName: "DAYLIFE",
+    tagline: "Every day counts.",
+    menuHome: "Home",
+    menuDreams: "Dreams",
+    menuReflections: "Reflections",
+    menuProfile: "Profile",
+    homeWelcome: "Welcome back to DAYLIFE",
+    homeSub: "Every day counts. Let’s make yours shine.",
+    howToEarn: "How to Earn Stars",
+    reflectionsTitle: "Daily Reflections",
+    reflectionsSub: "A space to learn, grow, and be grateful.",
+    dreamsTitle: "Your Dreams",
+    profileTitle: "Profile",
   },
   fr: {
-    home: "Accueil",
-    dreams: "Rêves",
-    reflections: "Réflexions",
-    profile: "Profil",
-    welcome: "Bienvenue sur DAYLIFE",
-    subtitle: "Chaque jour compte. Fais briller le tien.",
-    stars: "Étoiles gagnées",
-    dreamsInProgress: "Rêves en cours",
-    reflectionsWritten: "Réflexions écrites",
+    appName: "DAYLIFE",
+    tagline: "Chaque jour compte.",
+    menuHome: "Accueil",
+    menuDreams: "Rêves",
+    menuReflections: "Réflexions",
+    menuProfile: "Profil",
+    homeWelcome: "Bienvenue sur DAYLIFE",
+    homeSub: "Chaque jour compte. Fais briller le tien.",
+    howToEarn: "Comment gagner des étoiles",
+    reflectionsTitle: "Réflexions quotidiennes",
+    reflectionsSub: "Un espace pour apprendre, grandir et être reconnaissant.",
+    dreamsTitle: "Tes rêves",
+    profileTitle: "Profil",
   },
   es: {
-    home: "Inicio",
-    dreams: "Sueños",
-    reflections: "Reflexiones",
-    profile: "Perfil",
-    welcome: "Bienvenido a DAYLIFE",
-    subtitle: "Cada día cuenta. Haz que el tuyo brille.",
-    stars: "Estrellas ganadas",
-    dreamsInProgress: "Sueños en progreso",
-    reflectionsWritten: "Reflexiones escritas",
-  },
-  th: {
-    home: "หน้าแรก",
-    dreams: "ความฝัน",
-    reflections: "การสะท้อน",
-    profile: "โปรไฟล์",
-    welcome: "ยินดีต้อนรับสู่ DAYLIFE",
-    subtitle: "ทุกวันมีค่า ทำให้วันของคุณเปล่งประกาย",
-    stars: "ดาวที่ได้รับ",
-    dreamsInProgress: "ความฝันที่กำลังดำเนินอยู่",
-    reflectionsWritten: "การสะท้อนที่เขียนไว้",
-  },
-  my: {
-    home: "ပင်မ",
-    dreams: "အိပ်မက်များ",
-    reflections: "အတွေးအခေါ်များ",
-    profile: "ပရိုဖိုင်",
-    welcome: "DAYLIFE သို့ ကြိုဆိုပါသည်",
-    subtitle: "နေ့တိုင်းအရေးကြီးပါတယ်၊ သင်၏နေ့ကို တန်ဖိုးရှိစေပါ။",
-    stars: "ကြယ်များရရှိသည်",
-    dreamsInProgress: "အိပ်မက်များ လုပ်ဆောင်နေသည်",
-    reflectionsWritten: "အတွေးအခေါ်များ ရေးသားပြီး",
+    appName: "DAYLIFE",
+    tagline: "Cada día cuenta.",
+    menuHome: "Inicio",
+    menuDreams: "Sueños",
+    menuReflections: "Reflexiones",
+    menuProfile: "Perfil",
+    homeWelcome: "Bienvenido a DAYLIFE",
+    homeSub: "Cada día cuenta. Haz que el tuyo brille.",
+    howToEarn: "Cómo ganar estrellas",
+    reflectionsTitle: "Reflexiones diarias",
+    reflectionsSub: "Un espacio para aprender, crecer y agradecer.",
+    dreamsTitle: "Tus sueños",
+    profileTitle: "Perfil",
   },
   de: {
-    home: "Startseite",
-    dreams: "Träume",
-    reflections: "Reflexionen",
-    profile: "Profil",
-    welcome: "Willkommen bei DAYLIFE",
-    subtitle: "Jeder Tag zählt. Mach deinen zum Glänzen.",
-    stars: "Verdiente Sterne",
-    dreamsInProgress: "Träume in Arbeit",
-    reflectionsWritten: "Geschriebene Reflexionen",
-  },
-  ru: {
-    home: "Главная",
-    dreams: "Мечты",
-    reflections: "Размышления",
-    profile: "Профиль",
-    welcome: "Добро пожаловать в DAYLIFE",
-    subtitle: "Каждый день важен. Пусть твой сияет.",
-    stars: "Звёзды заработаны",
-    dreamsInProgress: "Мечты в процессе",
-    reflectionsWritten: "Размышления записаны",
+    appName: "DAYLIFE",
+    tagline: "Jeder Tag zählt.",
+    menuHome: "Start",
+    menuDreams: "Träume",
+    menuReflections: "Reflexionen",
+    menuProfile: "Profil",
+    homeWelcome: "Willkommen bei DAYLIFE",
+    homeSub: "Jeder Tag zählt. Lass deinen glänzen.",
+    howToEarn: "Sterne verdienen",
+    reflectionsTitle: "Tägliche Reflexionen",
+    reflectionsSub: "Ein Raum zum Lernen, Wachsen und Danken.",
+    dreamsTitle: "Deine Träume",
+    profileTitle: "Profil",
   },
   it: {
-    home: "Home",
-    dreams: "Sogni",
-    reflections: "Riflessioni",
-    profile: "Profilo",
-    welcome: "Benvenuto in DAYLIFE",
-    subtitle: "Ogni giorno conta. Fai brillare il tuo.",
-    stars: "Stelle guadagnate",
-    dreamsInProgress: "Sogni in corso",
-    reflectionsWritten: "Riflessioni scritte",
+    appName: "DAYLIFE",
+    tagline: "Ogni giorno conta.",
+    menuHome: "Home",
+    menuDreams: "Sogni",
+    menuReflections: "Riflessioni",
+    menuProfile: "Profilo",
+    homeWelcome: "Bentornato su DAYLIFE",
+    homeSub: "Ogni giorno conta. Fai brillare il tuo.",
+    howToEarn: "Come guadagnare stelle",
+    reflectionsTitle: "Riflessioni quotidiane",
+    reflectionsSub: "Uno spazio per imparare, crescere e ringraziare.",
+    dreamsTitle: "I tuoi sogni",
+    profileTitle: "Profilo",
   },
   pt: {
-    home: "Início",
-    dreams: "Sonhos",
-    reflections: "Reflexões",
-    profile: "Perfil",
-    welcome: "Bem-vindo ao DAYLIFE",
-    subtitle: "Cada dia conta. Faça o seu brilhar.",
-    stars: "Estrelas ganhas",
-    dreamsInProgress: "Sonhos em andamento",
-    reflectionsWritten: "Reflexões escritas",
+    appName: "DAYLIFE",
+    tagline: "Cada dia conta.",
+    menuHome: "Início",
+    menuDreams: "Sonhos",
+    menuReflections: "Reflexões",
+    menuProfile: "Perfil",
+    homeWelcome: "Bem-vindo ao DAYLIFE",
+    homeSub: "Cada dia conta. Faça o seu brilhar.",
+    howToEarn: "Como ganhar estrelas",
+    reflectionsTitle: "Reflexões diárias",
+    reflectionsSub: "Um espaço para aprender, crescer e agradecer.",
+    dreamsTitle: "Seus sonhos",
+    profileTitle: "Perfil",
+  },
+  ru: {
+    appName: "DAYLIFE",
+    tagline: "Каждый день имеет значение.",
+    menuHome: "Главная",
+    menuDreams: "Мечты",
+    menuReflections: "Размышления",
+    menuProfile: "Профиль",
+    homeWelcome: "Добро пожаловать в DAYLIFE",
+    homeSub: "Каждый день важен. Пусть твой сияет.",
+    howToEarn: "Как заработать звёзды",
+    reflectionsTitle: "Ежедневные размышления",
+    reflectionsSub: "Место для роста, благодарности и осознания.",
+    dreamsTitle: "Твои мечты",
+    profileTitle: "Профиль",
+  },
+  th: {
+    appName: "DAYLIFE",
+    tagline: "ทุกวันมีความหมาย",
+    menuHome: "หน้าแรก",
+    menuDreams: "ความฝัน",
+    menuReflections: "การสะท้อนใจ",
+    menuProfile: "โปรไฟล์",
+    homeWelcome: "ยินดีต้อนรับสู่ DAYLIFE",
+    homeSub: "ทุกวันมีค่า ทำให้วันของคุณเปล่งประกาย",
+    howToEarn: "วิธีรับดาว",
+    reflectionsTitle: "การสะท้อนใจประจำวัน",
+    reflectionsSub: "พื้นที่สำหรับเรียนรู้ เติบโต และขอบคุณ",
+    dreamsTitle: "ความฝันของคุณ",
+    profileTitle: "โปรไฟล์",
   },
   zh: {
-    home: "首页",
-    dreams: "梦想",
-    reflections: "反思",
-    profile: "个人资料",
-    welcome: "欢迎来到 DAYLIFE",
-    subtitle: "每一天都很重要，让你的闪耀吧。",
-    stars: "已获得的星星",
-    dreamsInProgress: "进行中的梦想",
-    reflectionsWritten: "已写的反思",
+    appName: "DAYLIFE",
+    tagline: "每一天都很重要。",
+    menuHome: "主页",
+    menuDreams: "梦想",
+    menuReflections: "反思",
+    menuProfile: "个人资料",
+    homeWelcome: "欢迎来到 DAYLIFE",
+    homeSub: "每一天都重要，让你的闪耀。",
+    howToEarn: "如何赚取星星",
+    reflectionsTitle: "每日反思",
+    reflectionsSub: "学习、成长和感恩的空间。",
+    dreamsTitle: "你的梦想",
+    profileTitle: "个人资料",
   },
   ja: {
-    home: "ホーム",
-    dreams: "夢",
-    reflections: "リフレクション",
-    profile: "プロフィール",
-    welcome: "DAYLIFEへようこそ",
-    subtitle: "毎日が大切です。あなたの日々を輝かせましょう。",
-    stars: "獲得したスター",
-    dreamsInProgress: "進行中の夢",
-    reflectionsWritten: "書いたリフレクション",
+    appName: "DAYLIFE",
+    tagline: "毎日が大切です。",
+    menuHome: "ホーム",
+    menuDreams: "夢",
+    menuReflections: "振り返り",
+    menuProfile: "プロフィール",
+    homeWelcome: "DAYLIFEへようこそ",
+    homeSub: "毎日が大切。あなたの日を輝かせよう。",
+    howToEarn: "スターを獲得する方法",
+    reflectionsTitle: "毎日の振り返り",
+    reflectionsSub: "学び、成長し、感謝するための空間。",
+    dreamsTitle: "あなたの夢",
+    profileTitle: "プロフィール",
+  },
+  ko: {
+    appName: "DAYLIFE",
+    tagline: "모든 날이 중요합니다.",
+    menuHome: "홈",
+    menuDreams: "꿈",
+    menuReflections: "성찰",
+    menuProfile: "프로필",
+    homeWelcome: "DAYLIFE에 오신 것을 환영합니다",
+    homeSub: "모든 날이 중요합니다. 당신의 하루를 빛나게 하세요.",
+    howToEarn: "별을 얻는 방법",
+    reflectionsTitle: "하루의 성찰",
+    reflectionsSub: "배우고 성장하며 감사하는 공간입니다.",
+    dreamsTitle: "당신의 꿈",
+    profileTitle: "프로필",
   },
   ar: {
-    home: "الرئيسية",
-    dreams: "الأحلام",
-    reflections: "التأملات",
-    profile: "الملف الشخصي",
-    welcome: "مرحبًا بك في DAYLIFE",
-    subtitle: "كل يوم مهم، اجعل يومك يتألق.",
-    stars: "النجوم المكتسبة",
-    dreamsInProgress: "الأحلام الجارية",
-    reflectionsWritten: "التأملات المكتوبة",
-  }
+    appName: "DAYLIFE",
+    tagline: "كل يوم مهم.",
+    menuHome: "الرئيسية",
+    menuDreams: "الأحلام",
+    menuReflections: "التأملات",
+    menuProfile: "الملف الشخصي",
+    homeWelcome: "مرحبًا بك في DAYLIFE",
+    homeSub: "كل يوم مهم، اجعل يومك يتألق.",
+    howToEarn: "كيفية كسب النجوم",
+    reflectionsTitle: "تأملات يومية",
+    reflectionsSub: "مساحة للتعلم والنمو والامتنان.",
+    dreamsTitle: "أحلامك",
+    profileTitle: "الملف الشخصي",
+  },
 };
 
-// ✅ Langue détectée ou enregistrée
-function getUserLang() {
-  const storedLang = localStorage.getItem("lang");
-  if (storedLang && translations[storedLang]) return storedLang;
-
-  const browserLang = navigator.language.slice(0, 2);
-  if (translations[browserLang]) {
-    localStorage.setItem("lang", browserLang);
-    return browserLang;
-  }
-
-  localStorage.setItem("lang", "en");
-  return "en";
+// --- Detect & Apply language (Phase 1–3) ---
+function detectLang() {
+  const saved = localStorage.getItem("daylife_lang");
+  if (saved && LANGS.includes(saved)) return saved;
+  const browser = navigator.language?.slice(0,2).toLowerCase();
+  return LANGS.includes(browser) ? browser : "en";
 }
 
-// ✅ Changer la langue manuellement
+let currentLang = detectLang();
+
 function setLang(lang) {
-  if (translations[lang]) {
-    localStorage.setItem("lang", lang);
-    location.reload();
-  }
+  if (!LANGS.includes(lang)) lang = "en";
+  currentLang = lang;
+  localStorage.setItem("daylife_lang", lang);
+  applyTranslations();
 }
 
-// ✅ Fonction de traduction
 function t(key) {
-  const lang = getUserLang();
-  return translations[lang]?.[key] || translations["en"][key] || key;
+  return translations[currentLang]?.[key] || translations["en"][key] || key;
 }
 
-// ✅ Message d'accueil (1 seule fois)
+function applyTranslations() {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    el.textContent = t(key);
+  });
+  const selector = document.getElementById("langSelector");
+  if (selector) selector.value = currentLang;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  if (!localStorage.getItem("langNoticeShown")) {
-    const lang = getUserLang();
-    const notice = document.createElement("div");
-    notice.textContent = `🌍 Language detected: ${lang.toUpperCase()}`;
-    notice.style.position = "fixed";
-    notice.style.bottom = "10px";
-    notice.style.left = "50%";
-    notice.style.transform = "translateX(-50%)";
-    notice.style.background = "linear-gradient(90deg, #7c3aed, #4f46e5)";
-    notice.style.color = "white";
-    notice.style.padding = "8px 16px";
-    notice.style.borderRadius = "12px";
-    notice.style.fontSize = "14px";
-    notice.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
-    notice.style.zIndex = "1000";
-    document.body.appendChild(notice);
-    setTimeout(() => {
-      notice.remove();
-    }, 3000);
-    localStorage.setItem("langNoticeShown", "true");
-  }
+  applyTranslations();
 });

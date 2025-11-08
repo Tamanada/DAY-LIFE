@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DAYLIFE – Welcome</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Style global de l'app -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    /* ===== STYLES SPÉCIFIQUES À LA PAGE WELCOME ===== */
+
+    body {
+      margin: 0;
+    }
+
+    .welcome-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .welcome-inner {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .welcome-card {
+      background: radial-gradient(circle at top left, #eef2ff, #ffffff 45%, #fef2ff);
+      border-radius: 24px;
+      padding: 24px 20px 22px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+    }
+
+    .welcome-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      background: radial-gradient(circle at 30% 20%, #f9fafb, #1d4ed8, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 28px;
+      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.45);
+    }
+
+    .welcome-title {
+      text-align: center;
+      font-size: 24px;
+      margin: 0 0 6px;
+      font-weight: 700;
+    }
+
+    .welcome-tagline {
+      text-align: center;
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+
+    .welcome-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .welcome-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .welcome-field label {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .welcome-input,
+    .welcome-select {
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      font-size: 14px;
+      outline: none;
+      background: #f9fafb;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+    }
+
+    .welcome-input:focus,
+    .welcome-select:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.3);
+      background-color: #ffffff;
+    }
+
+    .welcome-helper {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .welcome-btn {
+      margin-top: 8px;
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+      color: #ffffff;
+      transition: filter 0.15s ease, transform 0.1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .welcome-btn:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .welcome-btn:active {
+      transform: translateY(0);
+    }
+
+    .welcome-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
+    }
+
+    .welcome-result {
+      margin-top: 10px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .welcome-result.error {
+      color: #dc2626;
+    }
+
+    .welcome-result.success {
+      color: #16a34a;
+    }
+
+    .lang-select-top {
+      min-width: 120px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      outline: none;
+    }
+
+    @media (max-width: 640px) {
+      .welcome-page {
+        padding-top: 16px;
+        padding-bottom: 24px;
+      }
+
+      .welcome-card {
+        border-radius: 20px;
+        padding: 20px 16px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- HEADER SIMPLIFIÉ : LOGO + LANGUE -->
+    <header class="app-header">
+      <div class="app-header-inner">
+        <div class="brand">
+          <div class="brand-orbit">🌕</div>
+          <div>
+            <div class="brand-text-main">DAYLIFE</div>
+            <div class="brand-text-sub">30 000 Days</div>
+          </div>
+        </div>
+        <div class="top-nav">
+          <select id="languageSelect" class="lang-select-top"></select>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="page welcome-page">
+      <div class="page-inner welcome-inner">
+        <section class="section">
+          <div class="card welcome-card">
+            <div class="welcome-logo">
+              <i data-lucide="sparkles"></i>
+            </div>
+            <h1 class="welcome-title" id="headline">DAYLIFE</h1>
+            <p class="welcome-tagline" id="tagline">
+              Every day counts. What will you do with yours?
+            </p>
+
+            <form id="setupForm" class="welcome-form">
+              <!-- Date de naissance -->
+              <div class="welcome-field">
+                <label for="dob" id="dobLabel">Date of birth *</label>
+                <input type="date" id="dob" class="welcome-input" />
+                <div class="welcome-helper" id="dobHelper">
+                  We use this to calculate how many days you’ve already lived.
+                </div>
+              </div>
+
+              <!-- Sexe -->
+              <div class="welcome-field">
+                <label for="sex" id="sexLabel">Sex *</label>
+                <select id="sex" class="welcome-select">
+                  <option value="" id="sexPlaceholder">Select your sex</option>
+                  <option value="male" id="sexMale">Male</option>
+                  <option value="female" id="sexFemale">Female</option>
+                </select>
+              </div>
+
+              <!-- Pays -->
+              <div class="welcome-field">
+                <label for="country" id="countryLabel">Country of birth *</label>
+                <select id="country" class="welcome-select">
+                  <!-- options générées par JS -->
+                </select>
+                <div class="welcome-helper" id="countryHelper">
+                  Used to estimate your real life expectancy based on demographics.
+                </div>
+              </div>
+
+              <!-- Méthode de calcul -->
+              <div class="welcome-field">
+                <label for="calculationMode" id="calcLabel">Life calculation method</label>
+                <select id="calculationMode" class="welcome-select">
+                  <option value="30000_days" id="calc30000">
+                    30,000 days (default)
+                  </option>
+                  <option value="by_demographics" id="calcReal">
+                    Real (based on my profile)
+                  </option>
+                </select>
+                <div class="welcome-helper" id="calcHelper">
+                  You can change this later in your profile.
+                </div>
+              </div>
+
+              <button type="submit" class="welcome-btn" id="startButton">
+                <i data-lucide="play-circle"></i>
+                <span>Start my journey</span>
+              </button>
+            </form>
+
+            <p id="resultMessage" class="welcome-result"></p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- LIBRAIRIES -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    // =============== TRADUCTIONS (12 LANGUES) ===============
+
+    const welcomeTranslations = {
+      en: {
+        langName: "English",
+        tagline: "Every day counts. What will you do with yours?",
+        dobLabel: "Date of birth *",
+        dobHelper: "We use this to calculate how many days you’ve already lived.",
+        sexLabel: "Sex *",
+        sexPlaceholder: "Select your sex",
+        sexMale: "Male",
+        sexFemale: "Female",
+        countryLabel: "Country of birth *",
+        countryHelper: "Used to estimate your real life expectancy based on demographics.",
+        calcLabel: "Life calculation method",
+        calc30000: "30,000 days (default)",
+        calcReal: "Real (based on my profile)",
+        calcHelper: "You can change this later in your profile.",
+        startButton: "Start my journey",
+        errorIncomplete: "Please fill in all required fields.",
+        successSaved: "Profile saved. Welcome to DAYLIFE! 🌕",
+      },
+      fr: {
+        langName: "Français",
+        tagline: "Chaque jour compte. Que ferez-vous du vôtre ?",
+        dobLabel: "Date de naissance *",
+        dobHelper: "Nous l’utilisons pour calculer combien de jours vous avez déjà vécus.",
+        sexLabel: "Sexe *",
+        sexPlaceholder: "Sélectionnez votre sexe",
+        sexMale: "Homme",
+        sexFemale: "Femme",
+        countryLabel: "Pays de naissance *",
+        countryHelper: "Utilisé pour estimer votre espérance de vie réelle selon les données démographiques.",
+        calcLabel: "Méthode de calcul de vie",
+        calc30000: "30 000 jours (par défaut)",
+        calcReal: "Réel (selon mon profil)",
+        calcHelper: "Vous pourrez modifier ce choix plus tard dans votre profil.",
+        startButton: "Commencer mon voyage",
+        errorIncomplete: "Veuillez remplir tous les champs obligatoires.",
+        successSaved: "Profil enregistré. Bienvenue dans DAYLIFE ! 🌕",
+      },
+      es: {
+        langName: "Español",
+        tagline: "Cada día cuenta. ¿Qué harás con el tuyo?",
+        dobLabel: "Fecha de nacimiento *",
+        dobHelper: "La usamos para calcular cuántos días ya has vivido.",
+        sexLabel: "Sexo *",
+        sexPlaceholder: "Selecciona tu sexo",
+        sexMale: "Hombre",
+        sexFemale: "Mujer",
+        countryLabel: "País de nacimiento *",
+        countryHelper: "Se usa para estimar tu esperanza de vida real según tu país.",
+        calcLabel: "Método de cálculo de vida",
+        calc30000: "30.000 días (por defecto)",
+        calcReal: "Real (según mi perfil)",
+        calcHelper: "Puedes cambiar esto más tarde en tu perfil.",
+        startButton: "Empezar mi viaje",
+        errorIncomplete: "Por favor completa todos los campos obligatorios.",
+        successSaved: "Perfil guardado. ¡Bienvenido a DAYLIFE! 🌕",
+      },
+      de: {
+        langName: "Deutsch",
+        tagline: "Jeder Tag zählt. Was machst du aus deinem?",
+        dobLabel: "Geburtsdatum *",
+        dobHelper: "Wir verwenden es, um zu berechnen, wie viele Tage du bereits gelebt hast.",
+        sexLabel: "Geschlecht *",
+        sexPlaceholder: "Wähle dein Geschlecht",
+        sexMale: "Männlich",
+        sexFemale: "Weiblich",
+        countryLabel: "Geburtsland *",
+        countryHelper: "Wird verwendet, um deine tatsächliche Lebenserwartung zu schätzen.",
+        calcLabel: "Lebensberechnung",
+        calc30000: "30.000 Tage (Standard)",
+        calcReal: "Real (basierend auf meinem Profil)",
+        calcHelper: "Du kannst dies später in deinem Profil ändern.",
+        startButton: "Meine Reise starten",
+        errorIncomplete: "Bitte fülle alle Pflichtfelder aus.",
+        successSaved: "Profil gespeichert. Willkommen bei DAYLIFE! 🌕",
+      },
+      pt: {
+        langName: "Português",
+        tagline: "Cada dia conta. O que você fará com o seu?",
+        dobLabel: "Data de nascimento *",
+        dobHelper: "Usamos isso para calcular quantos dias você já viveu.",
+        sexLabel: "Sexo *",
+        sexPlaceholder: "Selecione seu sexo",
+        sexMale: "Homem",
+        sexFemale: "Mulher",
+        countryLabel: "País de nascimento *",
+        countryHelper: "Usado para estimar sua expectativa de vida real.",
+        calcLabel: "Método de cálculo de vida",
+        calc30000: "30.000 dias (padrão)",
+        calcReal: "Real (com base no meu perfil)",
+        calcHelper: "Você pode alterar isso depois no seu perfil.",
+        startButton: "Começar minha jornada",
+        errorIncomplete: "Por favor, preencha todos os campos obrigatórios.",
+        successSaved: "Perfil salvo. Bem-vindo ao DAYLIFE! 🌕",
+      },
+      it: {
+        langName: "Italiano",
+        tagline: "Ogni giorno conta. Cosa farai del tuo?",
+        dobLabel: "Data di nascita *",
+        dobHelper: "La usiamo per calcolare quanti giorni hai già vissuto.",
+        sexLabel: "Sesso *",
+        sexPlaceholder: "Seleziona il tuo sesso",
+        sexMale: "Uomo",
+        sexFemale: "Donna",
+        countryLabel: "Paese di nascita *",
+        countryHelper: "Usato per stimare la tua aspettativa di vita reale.",
+        calcLabel: "Metodo di calcolo della vita",
+        calc30000: "30.000 giorni (predefinito)",
+        calcReal: "Reale (in base al mio profilo)",
+        calcHelper: "Puoi cambiare questa opzione più tardi nel tuo profilo.",
+        startButton: "Inizia il mio viaggio",
+        errorIncomplete: "Compila tutti i campi obbligatori.",
+        successSaved: "Profilo salvato. Benvenuto in DAYLIFE! 🌕",
+      },
+      zh: {
+        langName: "中文",
+        tagline: "每一天都很重要，你会如何使用它？",
+        dobLabel: "出生日期 *",
+        dobHelper: "用于计算你已经度过了多少天。",
+        sexLabel: "性别 *",
+        sexPlaceholder: "选择你的性别",
+        sexMale: "男",
+        sexFemale: "女",
+        countryLabel: "出生国家 *",
+        countryHelper: "根据人口统计估算你的预期寿命。",
+        calcLabel: "生命计算方式",
+        calc30000: "30,000 天（默认）",
+        calcReal: "真实（基于我的资料）",
+        calcHelper: "你可以稍后在个人资料中修改。",
+        startButton: "开始我的旅程",
+        errorIncomplete: "请填写所有必填字段。",
+        successSaved: "资料已保存，欢迎来到 DAYLIFE！🌕",
+      },
+      hi: {
+        langName: "हिन्दी",
+        tagline: "हर दिन मायने रखता है। आप अपने दिन का क्या करेंगे?",
+        dobLabel: "जन्म तिथि *",
+        dobHelper: "हम इसका उपयोग यह गणना करने के लिए करते हैं कि आपने कितने दिन जी लिए हैं।",
+        sexLabel: "लिंग *",
+        sexPlaceholder: "अपना लिंग चुनें",
+        sexMale: "पुरुष",
+        sexFemale: "महिला",
+        countryLabel: "जन्म का देश *",
+        countryHelper: "आपकी वास्तविक जीवन प्रत्याशा का अनुमान लगाने के लिए।",
+        calcLabel: "जीवन गणना विधि",
+        calc30000: "30,000 दिन (डिफ़ॉल्ट)",
+        calcReal: "वास्तविक (मेरे प्रोफ़ाइल के अनुसार)",
+        calcHelper: "आप बाद में अपने प्रोफ़ाइल में इसे बदल सकते हैं।",
+        startButton: "मेरी यात्रा शुरू करें",
+        errorIncomplete: "कृपया सभी आवश्यक फ़ील्ड भरें।",
+        successSaved: "प्रोफ़ाइल सहेजी गई। DAYLIFE में स्वागत है! 🌕",
+      },
+      ar: {
+        langName: "العربية",
+        tagline: "كل يوم مهم. ماذا ستفعل بيومك؟",
+        dobLabel: "تاريخ الميلاد *",
+        dobHelper: "نستخدمه لحساب عدد الأيام التي عشتها.",
+        sexLabel: "الجنس *",
+        sexPlaceholder: "اختر جنسك",
+        sexMale: "ذكر",
+        sexFemale: "أنثى",
+        countryLabel: "بلد الميلاد *",
+        countryHelper: "يُستخدم لتقدير متوسط عمرك المتوقع.",
+        calcLabel: "طريقة حساب الحياة",
+        calc30000: "30,000 يوم (افتراضي)",
+        calcReal: "حقيقي (وفقًا لملفي الشخصي)",
+        calcHelper: "يمكنك تغيير هذا لاحقًا في صفحتك الشخصية.",
+        startButton: "ابدأ رحلتي",
+        errorIncomplete: "يرجى ملء جميع الحقول المطلوبة.",
+        successSaved: "تم حفظ الملف الشخصي. مرحبًا بك في DAYLIFE! 🌕",
+      },
+      ru: {
+        langName: "Русский",
+        tagline: "Каждый день важен. Что ты сделаешь со своим?",
+        dobLabel: "Дата рождения *",
+        dobHelper: "Мы используем её, чтобы посчитать, сколько дней ты уже прожил.",
+        sexLabel: "Пол *",
+        sexPlaceholder: "Выбери свой пол",
+        sexMale: "Мужской",
+        sexFemale: "Женский",
+        countryLabel: "Страна рождения *",
+        countryHelper: "Используется для оценки твоей реальной ожидаемой продолжительности жизни.",
+        calcLabel: "Способ расчёта жизни",
+        calc30000: "30 000 дней (по умолчанию)",
+        calcReal: "Реальный (на основе моего профиля)",
+        calcHelper: "Ты можешь изменить это позже в профиле.",
+        startButton: "Начать путь",
+        errorIncomplete: "Пожалуйста, заполни все обязательные поля.",
+        successSaved: "Профиль сохранён. Добро пожаловать в DAYLIFE! 🌕",
+      },
+      th: {
+        langName: "ไทย",
+        tagline: "ทุกวันมีความหมาย คุณจะใช้วันของคุณอย่างไร?",
+        dobLabel: "วันเดือนปีเกิด *",
+        dobHelper: "เราใช้เพื่อคำนวณว่าคุณใช้ชีวิตมาแล้วกี่วัน",
+        sexLabel: "เพศ *",
+        sexPlaceholder: "เลือกเพศของคุณ",
+        sexMale: "ชาย",
+        sexFemale: "หญิง",
+        countryLabel: "ประเทศเกิด *",
+        countryHelper: "ใช้ประมาณอายุขัยตามสถิติของประเทศคุณ",
+        calcLabel: "วิธีคำนวณชีวิต",
+        calc30000: "30,000 วัน (ค่าเริ่มต้น)",
+        calcReal: "จริง (ตามโปรไฟล์ของฉัน)",
+        calcHelper: "คุณสามารถเปลี่ยนภายหลังได้ในโปรไฟล์",
+        startButton: "เริ่มการเดินทางของฉัน",
+        errorIncomplete: "กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน",
+        successSaved: "บันทึกโปรไฟล์แล้ว ยินดีต้อนรับสู่ DAYLIFE! 🌕",
+      },
+      my: {
+        langName: "မြန်မာ",
+        tagline: "နေ့တိုင်း အရေးကြီးပါတယ်၊ မင်းရဲ့နေ့ကို ဘာအတွက် သုံးမလဲ?",
+        dobLabel: "မွေးသက္ကရာဇ် *",
+        dobHelper: "မင်း ဘယ်လောက်နေ့ နေထိုင်ခဲ့ပြီးနေပြီလဲ စုချက်တွက်ရန် သုံးပါတယ်။",
+        sexLabel: "လိင် *",
+        sexPlaceholder: "မင်းရဲ့လိင်ကို ရွေးပါ",
+        sexMale: "ကျား",
+        sexFemale: "မ",
+        countryLabel: "မွေးဖွားသည့် နိုင်ငံ *",
+        countryHelper: "မင်းရဲ့လူဦးရေသاحဝင် အကြမ်းဖျဉ်း အသက်ရှည်ရင်ှာ မှန်းခြေဖို့ သုံးပါတယ်။",
+        calcLabel: "အသက်ရှည် ရေတွက်ပုံ",
+        calc30000: "ရက် ၃၀,၀၀၀ (မူလသတ်မှတ်ချက်)",
+        calcReal: "တကယ့် (ကျွန်တော်/ကျွန်မရဲ့ ပရိုဖိုင်အပေါ်မူတည်၍)",
+        calcHelper: "နောက်မှာ ပရိုဖိုင်ထဲမှာ ပြန်ပြင်လို့ ရပါတယ်။",
+        startButton: "ကျွန်တော်/ကျွန်မရဲ့ ခရီးစဉ် စတင်မယ်",
+        errorIncomplete: "လိုအပ်သော အချက်အလက်အားလုံး ဖြည့်သွင်းပါ။",
+        successSaved: "ပရိုဖိုင် သိမ်းဆည်းပြီးပါပြီ။ DAYLIFE မှ ကြိုဆိုပါတယ်! 🌕",
+      },
+    };
+
+    const supportedLanguages = [
+      "en",
+      "fr",
+      "es",
+      "de",
+      "pt",
+      "it",
+      "zh",
+      "hi",
+      "ar",
+      "ru",
+      "th",
+      "my",
+    ];
+
+    // =============== LISTE DES PAYS (ISO 2) ===============
+    // (liste non exhaustive parfaite, mais large pour le monde)
+
+    const countries = [
+      { code: "", name: "Select your country" },
+      { code: "FR", name: "France" },
+      { code: "TH", name: "Thailand" },
+      { code: "MM", name: "Myanmar" },
+      { code: "US", name: "United States" },
+      { code: "CA", name: "Canada" },
+      { code: "GB", name: "United Kingdom" },
+      { code: "DE", name: "Germany" },
+      { code: "ES", name: "Spain" },
+      { code: "IT", name: "Italy" },
+      { code: "PT", name: "Portugal" },
+      { code: "BR", name: "Brazil" },
+      { code: "MX", name: "Mexico" },
+      { code: "AR", name: "Argentina" },
+      { code: "CL", name: "Chile" },
+      { code: "CO", name: "Colombia" },
+      { code: "PE", name: "Peru" },
+      { code: "VE", name: "Venezuela" },
+      { code: "RU", name: "Russia" },
+      { code: "UA", name: "Ukraine" },
+      { code: "PL", name: "Poland" },
+      { code: "NL", name: "Netherlands" },
+      { code: "BE", name: "Belgium" },
+      { code: "CH", name: "Switzerland" },
+      { code: "SE", name: "Sweden" },
+      { code: "NO", name: "Norway" },
+      { code: "FI", name: "Finland" },
+      { code: "DK", name: "Denmark" },
+      { code: "IE", name: "Ireland" },
+      { code: "IS", name: "Iceland" },
+      { code: "PT", name: "Portugal" },
+      { code: "GR", name: "Greece" },
+      { code: "TR", name: "Turkey" },
+      { code: "SA", name: "Saudi Arabia" },
+      { code: "AE", name: "United Arab Emirates" },
+      { code: "EG", name: "Egypt" },
+      { code: "MA", name: "Morocco" },
+      { code: "DZ", name: "Algeria" },
+      { code: "TN", name: "Tunisia" },
+      { code: "NG", name: "Nigeria" },
+      { code: "KE", name: "Kenya" },
+      { code: "GH", name: "Ghana" },
+      { code: "ZA", name: "South Africa" },
+      { code: "IN", name: "India" },
+      { code: "PK", name: "Pakistan" },
+      { code: "BD", name: "Bangladesh" },
+      { code: "LK", name: "Sri Lanka" },
+      { code: "NP", name: "Nepal" },
+      { code: "CN", name: "China" },
+      { code: "JP", name: "Japan" },
+      { code: "KR", name: "South Korea" },
+      { code: "ID", name: "Indonesia" },
+      { code: "MY", name: "Malaysia" },
+      { code: "PH", name: "Philippines" },
+      { code: "VN", name: "Vietnam" },
+      { code: "SG", name: "Singapore" },
+      { code: "AU", name: "Australia" },
+      { code: "NZ", name: "New Zealand" },
+      // Tu pourras en ajouter d'autres si tu veux être 100% ISO-3166
+    ];
+
+    // ========= Fonction pour appliquer la langue à la page =========
+
+    function applyLang(lang) {
+      const t = welcomeTranslations[lang] || welcomeTranslations["en"];
+
+      document.getElementById("tagline").textContent = t.tagline;
+      document.getElementById("dobLabel").textContent = t.dobLabel;
+      document.getElementById("dobHelper").textContent = t.dobHelper;
+      document.getElementById("sexLabel").textContent = t.sexLabel;
+      document.getElementById("sexPlaceholder").textContent = t.sexPlaceholder;
+      document.getElementById("sexMale").textContent = t.sexMale;
+      document.getElementById("sexFemale").textContent = t.sexFemale;
+      document.getElementById("countryLabel").textContent = t.countryLabel;
+      document.getElementById("countryHelper").textContent = t.countryHelper;
+      document.getElementById("calcLabel").textContent = t.calcLabel;
+      document.getElementById("calc30000").textContent = t.calc30000;
+      document.getElementById("calcReal").textContent = t.calcReal;
+      document.getElementById("calcHelper").textContent = t.calcHelper;
+      document.getElementById("startButton").querySelector("span").textContent =
+        t.startButton;
+    }
+
+    // ========= Life expectancy API =========
+    // Utilise l'API World Bank (données globales), puis ajuste légèrement par sexe.
+
+    async function fetchLifeExpectancyDays(countryCode, sex) {
+      const url =
+        "https://api.worldbank.org/v2/country/" +
+        countryCode +
+        "/indicator/SP.DYN.LE00.IN?format=json";
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("API error");
+        const data = await res.json();
+        let years = null;
+
+        if (Array.isArray(data) && Array.isArray(data[1])) {
+          for (const row of data[1]) {
+            if (row && row.value != null) {
+              years = row.value;
+              break;
+            }
+          }
+        }
+
+        if (!years) {
+          years = 80; // fallback
+        }
+
+        // Ajustement simple par sexe
+        if (sex === "female") years += 3;
+        if (sex === "male") years -= 2;
+
+        return Math.round(years * 365.25);
+      } catch (e) {
+        // Fallback simple si l'API est inaccessible / CORS
+        const baseYears = sex === "female" ? 82 : 78;
+        return Math.round(baseYears * 365.25);
+      }
+    }
+
+    // ========= INIT =========
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      const resultEl = document.getElementById("resultMessage");
+      const langSelect = document.getElementById("languageSelect");
+      const countrySelect = document.getElementById("country");
+
+      // ⚠️ Si le profil existe déjà, on redirige vers home.html
+      const existingProfile = localStorage.getItem("daylifeProfile");
+      const hasCompleted = localStorage.getItem("daylifeHasCompleted") === "true";
+      if (existingProfile && hasCompleted) {
+        window.location.href = "home.html";
+        return;
+      }
+
+      // Remplir la liste des langues
+      supportedLanguages.forEach((code) => {
+        const opt = document.createElement("option");
+        opt.value = code;
+        opt.textContent =
+          (welcomeTranslations[code] && welcomeTranslations[code].langName) ||
+          code.toUpperCase();
+        langSelect.appendChild(opt);
+      });
+
+      // Détecter la langue du navigateur
+      const browserLang = (navigator.language || "en").slice(0, 2);
+      let initialLang = "en";
+      if (supportedLanguages.includes(browserLang)) {
+        initialLang = browserLang;
+      }
+
+      // Si on a déjà une langue stockée, priorité
+      const storedLang = localStorage.getItem("daylife_lang");
+      if (storedLang && supportedLanguages.includes(storedLang)) {
+        initialLang = storedLang;
+      }
+
+      langSelect.value = initialLang;
+      applyLang(initialLang);
+
+      // Quand on change la langue, on sauvegarde dans localStorage
+      langSelect.addEventListener("change", () => {
+        const newLang = langSelect.value;
+        localStorage.setItem("daylife_lang", newLang);
+        applyLang(newLang);
+      });
+
+      // Remplir la liste des pays
+      countries.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c.code;
+        opt.textContent = c.name;
+        countrySelect.appendChild(opt);
+      });
+
+      // Gestion du formulaire
+      const form = document.getElementById("setupForm");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const lang = langSelect.value || "en";
+        const t = welcomeTranslations[lang] || welcomeTranslations["en"];
+
+        const dob = document.getElementById("dob").value;
+        const sex = document.getElementById("sex").value;
+        const country = document.getElementById("country").value;
+        const mode = document.getElementById("calculationMode").value;
+
+        if (!dob || !sex || !country) {
+          resultEl.textContent = t.errorIncomplete;
+          resultEl.className = "welcome-result error";
+          return;
+        }
+
+        // Calcul des jours vécus
+        const dobDate = new Date(dob);
+        const now = new Date();
+        const diffMs = now.getTime() - dobDate.getTime();
+        const daysLived = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+        let totalLifeDays;
+        if (mode === "30000_days") {
+          totalLifeDays = 30000;
+        } else {
+          // Mode "by_demographics" => API
+          totalLifeDays = await fetchLifeExpectancyDays(country, sex);
+        }
+
+        const daysRemaining = Math.max(totalLifeDays - daysLived, 0);
+
+        const profile = {
+          dob,
+          sex,
+          country,
+          calculationMode: mode,
+          lang,
+          daysLived,
+          daysRemaining,
+          totalLifeDays,
+          createdAt: now.toISOString(),
+        };
+
+        localStorage.setItem("daylifeProfile", JSON.stringify(profile));
+        localStorage.setItem("daylifeHasCompleted", "true");
+        localStorage.setItem("daylife_lang", lang);
+
+        resultEl.textContent = t.successSaved;
+        resultEl.className = "welcome-result success";
+
+        // Redirection vers la home
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 600);
+      });
+    });
+  </script>
+</body>
+</html>

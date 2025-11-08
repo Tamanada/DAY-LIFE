@@ -2,43 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAYLIFE – Every Day Counts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="assets/style.css" />
+  <!-- Icônes Lucide -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-
 <body>
   <div class="app-shell">
-    <!-- HEADER -->
+    <!-- HEADER NAVIGATION -->
     <header id="appHeader"></header>
 
     <!-- PAGE CONTENT -->
     <main class="page">
       <div class="page-inner home-page">
+
+        <!-- SECTION COMPTEUR / BARRE DE PROGRESSION -->
         <section class="section counter-section">
           <h1 data-i18n="home.title">🌕 How many days did you arrive on Earth?</h1>
-          <div class="life-stats">
-            <div class="days-lived">
-              <span class="label" data-i18n="home.lived">Days lived</span>
-              <span id="daysLived" class="value">0</span>
+
+          <div class="life-stats-card card">
+            <div class="life-stats-header">
+              <div class="life-stat-block">
+                <span class="label" data-i18n="home.lived">Days lived</span>
+                <span id="daysLived" class="value">0</span>
+              </div>
+              <div class="life-stat-block">
+                <span class="label" data-i18n="home.remaining">Days remaining</span>
+                <span id="daysLeft" class="value">0</span>
+              </div>
             </div>
-            <div class="progress-bar">
-              <div id="lifeProgress" class="progress-fill"></div>
+
+            <!-- Barre + halo + marqueurs de rêves -->
+            <div class="progress-wrapper">
+              <div class="progress-bar">
+                <div id="lifeProgress" class="progress-fill"></div>
+                <div class="progress-halo"></div>
+              </div>
+
+              <!-- Marqueurs de rêves -->
+              <div class="dream-markers" id="dreamMarkers"></div>
             </div>
-            <div class="days-left">
-              <span class="label" data-i18n="home.remaining">Days remaining</span>
-              <span id="daysLeft" class="value">0</span>
-            </div>
+
+            <!-- Date de fin estimée -->
+            <p class="life-caption" id="lifeCaption">
+              <!-- rempli en JS -->
+            </p>
           </div>
         </section>
 
-        <!-- STARS & QUOTE -->
+        <!-- TOOLTIP RÊVES -->
+        <div id="dreamTooltip" class="dream-tooltip" style="display:none;">
+          <div class="dream-tooltip-title" id="dreamTooltipTitle"></div>
+          <div class="dream-tooltip-question" id="dreamTooltipQuestion"></div>
+        </div>
+
+        <!-- ÉTOILES + INSPIRATION -->
         <section class="section inspiration-section">
           <div class="stars-count">
-            <i data-lucide="star"></i>
+            <i data-lucide="star" class="stat-icon"></i>
             <span id="starCount">⭐ 0</span>
           </div>
+
           <blockquote class="quote-box">
             <p id="quoteText">Loading inspiration...</p>
             <button id="newQuoteBtn" class="btn-refresh">
@@ -47,39 +72,99 @@
             </button>
           </blockquote>
         </section>
+
       </div>
     </main>
 
-    <!-- FOOTER -->
+    <!-- BOTTOM NAVIGATION -->
     <footer id="bottomNav"></footer>
   </div>
 
-  <!-- 🔗 Scripts -->
+  <!-- 🔗 SCRIPTS GLOBAUX -->
   <script src="assets/lang.js"></script>
   <script src="assets/inspirations.js"></script>
   <script src="assets/nav.js"></script>
-  <script>
-    createNavBar("home");
-    lucide.createIcons();
 
-    // --- Fake profile data for demo ---
+  <script>
+    // Initialise la nav
+    createNavBar("home");
+
+    // Création des icônes Lucide
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    // Récupération du profil
     const profile = JSON.parse(localStorage.getItem("daylifeProfile") || "{}");
     const dob = profile.dob ? new Date(profile.dob) : new Date(1990, 0, 1);
     const birthMs = dob.getTime();
     const todayMs = Date.now();
-    const daysLived = Math.floor((todayMs - birthMs) / (1000 * 60 * 60 * 24));
-    const totalDays = 30000; // default value
-    const daysLeft = totalDays - daysLived;
+    const daysLived = Math.max(
+      0,
+      Math.floor((todayMs - birthMs) / (1000 * 60 * 60 * 24))
+    );
 
-    document.getElementById("daysLived").textContent = daysLived.toLocaleString();
-    document.getElementById("daysLeft").textContent = daysLeft.toLocaleString();
-    document.getElementById("lifeProgress").style.width = `${(daysLived / totalDays) * 100}%`;
+    // Méthode de calcul : 30 000 jours par défaut
+    const totalDays = 30000;
+    const daysLeft = Math.max(0, totalDays - daysLived);
+    const lifeEndDate = new Date(birthMs + totalDays * 24 * 60 * 60 * 1000);
 
-    // --- Stars ---
-    const stars = localStorage.getItem("daylifeStars") || 0;
-    document.getElementById("starCount").textContent = `⭐ ${stars}`;
+    const daysLivedEl = document.getElementById("daysLived");
+    const daysLeftEl = document.getElementById("daysLeft");
+    const lifeProgressEl = document.getElementById("lifeProgress");
+    const lifeCaptionEl = document.getElementById("lifeCaption");
 
-    // --- Inspirations ---
+    // 🧮 Animation du compteur de 0 → jours vécus
+    function animateCounter(el, target) {
+      const duration = 1200;
+      const start = performance.now();
+
+      function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const value = Math.floor(t * target);
+        el.textContent = value.toLocaleString();
+        if (t < 1) requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    // Animation de la barre de progression
+    function animateProgressBar(el, percentage) {
+      const duration = 1200;
+      const start = performance.now();
+
+      function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const current = t * percentage;
+        el.style.width = current + "%";
+        if (t < 1) requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    const percentLived = (daysLived / totalDays) * 100;
+
+    animateCounter(daysLivedEl, daysLived);
+    daysLeftEl.textContent = daysLeft.toLocaleString();
+    animateProgressBar(lifeProgressEl, percentLived);
+
+    // Texte de fin estimée
+    const endDateStr = lifeEndDate.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    lifeCaptionEl.textContent =
+      `Estimated end of your 30,000 days: ${endDateStr}`;
+
+    // ⭐ ÉTOILES (stockées localement pour l’instant)
+    let starCountValue = parseInt(localStorage.getItem("daylifeStars") || "0", 10);
+    const starCountEl = document.getElementById("starCount");
+    starCountEl.textContent = `⭐ ${starCountValue}`;
+
+    // 🌙 INSPIRATION
     function updateQuote(isRandom = false) {
       const lang = window.DaylifeI18n ? DaylifeI18n.getLang() : "en";
       const quote = isRandom
@@ -88,98 +173,329 @@
       document.getElementById("quoteText").textContent = quote;
     }
 
-    updateQuote(); // Initial quote
+    updateQuote(false);
 
     document.getElementById("newQuoteBtn").addEventListener("click", () => {
       updateQuote(true);
-      document.getElementById("starCount").textContent = `⭐ ${++window.starCount || 1}`;
-      localStorage.setItem("daylifeStars", window.starCount);
+      // +1 étoile pour une nouvelle inspiration (exemple, à ajuster si tu veux)
+      starCountValue += 1;
+      localStorage.setItem("daylifeStars", String(starCountValue));
+      starCountEl.textContent = `⭐ ${starCountValue}`;
     });
 
-    // --- Apply translations ---
+    // 🌐 Applique les traductions si dispo
     if (window.DaylifeI18n) {
       DaylifeI18n.applyTranslations();
     }
+
+    // 🌈 MARQUEURS DE RÊVES SUR LA BARRE
+    const dreamMarkersContainer = document.getElementById("dreamMarkers");
+    const tooltip = document.getElementById("dreamTooltip");
+    const tooltipTitleEl = document.getElementById("dreamTooltipTitle");
+    const tooltipQuestionEl = document.getElementById("dreamTooltipQuestion");
+
+    function loadDreams() {
+      try {
+        const dreams = JSON.parse(localStorage.getItem("daylifeDreams") || "[]");
+        return Array.isArray(dreams) ? dreams : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function createDreamMarkers() {
+      const dreams = loadDreams();
+      dreamMarkersContainer.innerHTML = "";
+
+      if (!dreams.length) return;
+
+      dreams.forEach((dream) => {
+        if (!dream.createdAt && !dream.targetDate) return;
+
+        // Création du marqueur pour la date de création
+        if (dream.createdAt) {
+          const createdDate = new Date(dream.createdAt);
+          const daysFromBirth = Math.max(
+            0,
+            Math.floor((createdDate.getTime() - birthMs) / (1000 * 60 * 60 * 24))
+          );
+          const percent = Math.min(
+            100,
+            Math.max(0, (daysFromBirth / totalDays) * 100)
+          );
+          const marker = document.createElement("div");
+          marker.className = "dream-marker dream-marker-created";
+          marker.style.left = percent + "%";
+          marker.dataset.type = "created";
+          marker.dataset.title = dream.title || "Dream";
+          dreamMarkersContainer.appendChild(marker);
+        }
+
+        // Marqueur pour la date d’objectif
+        if (dream.targetDate) {
+          const targetDate = new Date(dream.targetDate);
+          const daysFromBirth = Math.max(
+            0,
+            Math.floor((targetDate.getTime() - birthMs) / (1000 * 60 * 60 * 24))
+          );
+          const percent = Math.min(
+            100,
+            Math.max(0, (daysFromBirth / totalDays) * 100)
+          );
+          const marker = document.createElement("div");
+          marker.className = "dream-marker dream-marker-target";
+          marker.style.left = percent + "%";
+          marker.dataset.type = "target";
+          marker.dataset.title = dream.title || "Dream";
+          dreamMarkersContainer.appendChild(marker);
+        }
+      });
+
+      // Gestion du survol pour afficher la bulle
+      const markers = dreamMarkersContainer.querySelectorAll(".dream-marker");
+      markers.forEach((marker) => {
+        marker.addEventListener("mouseenter", (e) => {
+          const rect = dreamMarkersContainer.getBoundingClientRect();
+          const type = marker.dataset.type;
+          const title = marker.dataset.title;
+
+          let question = "";
+          if (type === "created") {
+            question = "Comment te vois-tu aujourd'hui ?";
+          } else {
+            question =
+              "Décris l'instant où ton rêve commence. " +
+              "Comment es-tu habillé, coiffé ? Que se passe-t-il à ce moment unique ?";
+          }
+
+          tooltipTitleEl.textContent = title;
+          tooltipQuestionEl.textContent = question;
+
+          tooltip.style.display = "block";
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const markerRect = marker.getBoundingClientRect();
+
+          // Positionner la bulle au dessus du marqueur
+          tooltip.style.left =
+            markerRect.left - tooltipRect.width / 2 + markerRect.width / 2 + "px";
+          tooltip.style.top = rect.top - tooltipRect.height - 8 + window.scrollY + "px";
+        });
+
+        marker.addEventListener("mouseleave", () => {
+          tooltip.style.display = "none";
+        });
+      });
+    }
+
+    createDreamMarkers();
   </script>
 
+  <!-- 🎨 Styles spécifiques à la home (complètent ton style.css) -->
   <style>
-    /* --- Home page style additions --- */
     .home-page h1 {
       text-align: center;
       font-weight: 700;
       color: #4b0082;
+      margin-bottom: 18px;
     }
 
-    .life-stats {
+    .life-stats-card {
+      margin-top: 8px;
+    }
+
+    .life-stats-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .life-stat-block {
+      flex: 1;
       text-align: center;
-      margin: 20px auto;
-      width: 90%;
     }
 
-    .life-stats .label {
-      font-size: 14px;
+    .life-stat-block .label {
+      font-size: 13px;
       color: #64748b;
     }
 
-    .life-stats .value {
+    .life-stat-block .value {
       font-size: 22px;
-      font-weight: bold;
-      color: #1e293b;
+      font-weight: 700;
+      color: #111827;
       display: block;
       margin-top: 4px;
     }
 
-    .progress-bar {
-      height: 10px;
-      border-radius: 10px;
-      background: #e2e8f0;
-      margin: 20px auto;
-      overflow: hidden;
+    .progress-wrapper {
+      margin-top: 10px;
+      margin-bottom: 10px;
       position: relative;
     }
 
+    .progress-bar {
+      position: relative;
+      height: 12px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
     .progress-fill {
+      position: relative;
       height: 100%;
-      background: linear-gradient(90deg, #6366f1, #a855f7);
       width: 0;
-      transition: width 1s ease-in-out;
+      background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.7);
+      transition: width 1s ease-out;
+    }
+
+    /* Halo lumineux */
+    .progress-halo {
+      position: absolute;
+      top: -12px;
+      bottom: -12px;
+      left: -40%;
+      right: -40%;
+      background: radial-gradient(circle at 0% 50%, rgba(244, 114, 182, 0.18), transparent 55%);
+      pointer-events: none;
+      animation: halo-slide 4s ease-in-out infinite;
+    }
+
+    @keyframes halo-slide {
+      0% {
+        transform: translateX(-30%);
+        opacity: 0.0;
+      }
+      15% {
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(30%);
+        opacity: 1;
+      }
+      85% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateX(60%);
+        opacity: 0;
+      }
+    }
+
+    /* Marqueurs de rêves sur la barre */
+    .dream-markers {
+      position: relative;
+      height: 18px;
+      margin-top: 6px;
+    }
+
+    .dream-marker {
+      position: absolute;
+      top: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      transform: translateX(-50%);
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(15, 23, 42, 0.35);
+    }
+
+    .dream-marker-created {
+      background: #f97316; /* orange pour date de création */
+    }
+
+    .dream-marker-target {
+      background: #22c55e; /* vert pour date d'objectif */
+    }
+
+    .life-caption {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #6b7280;
+      text-align: center;
     }
 
     .stars-count {
-      text-align: center;
-      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      font-weight: 600;
       color: #facc15;
-      font-weight: bold;
+    }
+
+    .stars-count .stat-icon {
+      width: 20px;
+      height: 20px;
     }
 
     .quote-box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      background: #ffffff;
+      padding: 18px 16px;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
       text-align: center;
       font-style: italic;
       position: relative;
     }
 
     .btn-refresh {
+      margin-top: 14px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 16px;
-      background: linear-gradient(90deg, #7c3aed, #2563eb);
-      border: none;
-      color: #fff;
+      gap: 6px;
       border-radius: 999px;
-      padding: 10px 18px;
+      border: none;
+      padding: 8px 16px;
+      background: linear-gradient(90deg, #7c3aed, #2563eb);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.2s, opacity 0.3s;
+      box-shadow: 0 10px 24px rgba(79, 70, 229, 0.35);
+      transition: transform 0.12s ease, opacity 0.12s ease;
     }
 
     .btn-refresh:hover {
-      opacity: 0.9;
-      transform: scale(1.05);
+      opacity: 0.93;
+      transform: translateY(-1px);
+    }
+
+    .btn-refresh i {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Tooltip des rêves */
+    .dream-tooltip {
+      position: absolute;
+      z-index: 50;
+      max-width: 260px;
+      background: #0f172a;
+      color: #f9fafb;
+      padding: 10px 12px;
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.5);
+      font-size: 12px;
+    }
+
+    .dream-tooltip-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .dream-tooltip-question {
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+
+    @media (max-width: 640px) {
+      .life-stats-header {
+        flex-direction: column;
+      }
     }
   </style>
 </body>

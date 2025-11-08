@@ -230,7 +230,7 @@
               <div class="welcome-field">
                 <label for="country" id="countryLabel">Country of birth *</label>
                 <select id="country" class="welcome-select">
-                  <!-- options générées par JS -->
+                  <!-- placeholder + pays générés en JS -->
                 </select>
                 <div class="welcome-helper" id="countryHelper">
                   Used to estimate your real life expectancy based on demographics.
@@ -283,6 +283,7 @@
         sexMale: "Male",
         sexFemale: "Female",
         countryLabel: "Country of birth *",
+        countryPlaceholder: "Select your country",
         countryHelper: "Used to estimate your real life expectancy based on demographics.",
         calcLabel: "Life calculation method",
         calc30000: "30,000 days (default)",
@@ -302,6 +303,7 @@
         sexMale: "Homme",
         sexFemale: "Femme",
         countryLabel: "Pays de naissance *",
+        countryPlaceholder: "Sélectionnez votre pays",
         countryHelper: "Utilisé pour estimer votre espérance de vie réelle selon les données démographiques.",
         calcLabel: "Méthode de calcul de vie",
         calc30000: "30 000 jours (par défaut)",
@@ -321,6 +323,7 @@
         sexMale: "Hombre",
         sexFemale: "Mujer",
         countryLabel: "País de nacimiento *",
+        countryPlaceholder: "Selecciona tu país",
         countryHelper: "Se usa para estimar tu esperanza de vida real según tu país.",
         calcLabel: "Método de cálculo de vida",
         calc30000: "30.000 días (por defecto)",
@@ -340,6 +343,7 @@
         sexMale: "Männlich",
         sexFemale: "Weiblich",
         countryLabel: "Geburtsland *",
+        countryPlaceholder: "Wähle dein Land",
         countryHelper: "Wird verwendet, um deine tatsächliche Lebenserwartung zu schätzen.",
         calcLabel: "Lebensberechnung",
         calc30000: "30.000 Tage (Standard)",
@@ -359,6 +363,7 @@
         sexMale: "Homem",
         sexFemale: "Mulher",
         countryLabel: "País de nascimento *",
+        countryPlaceholder: "Selecione seu país",
         countryHelper: "Usado para estimar sua expectativa de vida real.",
         calcLabel: "Método de cálculo de vida",
         calc30000: "30.000 dias (padrão)",
@@ -378,6 +383,7 @@
         sexMale: "Uomo",
         sexFemale: "Donna",
         countryLabel: "Paese di nascita *",
+        countryPlaceholder: "Seleziona il tuo paese",
         countryHelper: "Usato per stimare la tua aspettativa di vita reale.",
         calcLabel: "Metodo di calcolo della vita",
         calc30000: "30.000 giorni (predefinito)",
@@ -397,6 +403,7 @@
         sexMale: "男",
         sexFemale: "女",
         countryLabel: "出生国家 *",
+        countryPlaceholder: "选择你的国家",
         countryHelper: "根据人口统计估算你的预期寿命。",
         calcLabel: "生命计算方式",
         calc30000: "30,000 天（默认）",
@@ -416,6 +423,7 @@
         sexMale: "पुरुष",
         sexFemale: "महिला",
         countryLabel: "जन्म का देश *",
+        countryPlaceholder: "अपना देश चुनें",
         countryHelper: "आपकी वास्तविक जीवन प्रत्याशा का अनुमान लगाने के लिए।",
         calcLabel: "जीवन गणना विधि",
         calc30000: "30,000 दिन (डिफ़ॉल्ट)",
@@ -435,6 +443,7 @@
         sexMale: "ذكر",
         sexFemale: "أنثى",
         countryLabel: "بلد الميلاد *",
+        countryPlaceholder: "اختر بلدك",
         countryHelper: "يُستخدم لتقدير متوسط عمرك المتوقع.",
         calcLabel: "طريقة حساب الحياة",
         calc30000: "30,000 يوم (افتراضي)",
@@ -454,6 +463,7 @@
         sexMale: "Мужской",
         sexFemale: "Женский",
         countryLabel: "Страна рождения *",
+        countryPlaceholder: "Выбери свою страну",
         countryHelper: "Используется для оценки твоей реальной ожидаемой продолжительности жизни.",
         calcLabel: "Способ расчёта жизни",
         calc30000: "30 000 дней (по умолчанию)",
@@ -473,6 +483,7 @@
         sexMale: "ชาย",
         sexFemale: "หญิง",
         countryLabel: "ประเทศเกิด *",
+        countryPlaceholder: "เลือกประเทศของคุณ",
         countryHelper: "ใช้ประมาณอายุขัยตามสถิติของประเทศคุณ",
         calcLabel: "วิธีคำนวณชีวิต",
         calc30000: "30,000 วัน (ค่าเริ่มต้น)",
@@ -492,7 +503,8 @@
         sexMale: "ကျား",
         sexFemale: "မ",
         countryLabel: "မွေးဖွားသည့် နိုင်ငံ *",
-        countryHelper: "မင်းရဲ့လူဦးရေသاحဝင် အကြမ်းဖျဉ်း အသက်ရှည်ရင်ှာ မှန်းခြေဖို့ သုံးပါတယ်။",
+        countryPlaceholder: "မင်းရဲ့နိုင်ငံကို ရွေးပါ",
+        countryHelper: "မင်းရဲ့လူဦးရေသاحဝင် အသက်ရှည်ရင်ှာ မှန်းခြေဖို့ သုံးပါတယ်။",
         calcLabel: "အသက်ရှည် ရေတွက်ပုံ",
         calc30000: "ရက် ၃၀,၀၀၀ (မူလသတ်မှတ်ချက်)",
         calcReal: "တကယ့် (ကျွန်တော်/ကျွန်မရဲ့ ပရိုဖိုင်အပေါ်မူတည်၍)",
@@ -518,69 +530,200 @@
       "my",
     ];
 
-    // =============== LISTE DES PAYS (ISO 2) ===============
-    // (liste non exhaustive parfaite, mais large pour le monde)
+    // =============== LISTE DES PAYS (large, quasi mondiale) ===============
 
     const countries = [
-      { code: "", name: "Select your country" },
-      { code: "FR", name: "France" },
-      { code: "TH", name: "Thailand" },
-      { code: "MM", name: "Myanmar" },
-      { code: "US", name: "United States" },
-      { code: "CA", name: "Canada" },
-      { code: "GB", name: "United Kingdom" },
-      { code: "DE", name: "Germany" },
-      { code: "ES", name: "Spain" },
-      { code: "IT", name: "Italy" },
-      { code: "PT", name: "Portugal" },
-      { code: "BR", name: "Brazil" },
-      { code: "MX", name: "Mexico" },
-      { code: "AR", name: "Argentina" },
-      { code: "CL", name: "Chile" },
-      { code: "CO", name: "Colombia" },
-      { code: "PE", name: "Peru" },
-      { code: "VE", name: "Venezuela" },
-      { code: "RU", name: "Russia" },
-      { code: "UA", name: "Ukraine" },
-      { code: "PL", name: "Poland" },
-      { code: "NL", name: "Netherlands" },
-      { code: "BE", name: "Belgium" },
-      { code: "CH", name: "Switzerland" },
-      { code: "SE", name: "Sweden" },
-      { code: "NO", name: "Norway" },
-      { code: "FI", name: "Finland" },
-      { code: "DK", name: "Denmark" },
-      { code: "IE", name: "Ireland" },
-      { code: "IS", name: "Iceland" },
-      { code: "PT", name: "Portugal" },
-      { code: "GR", name: "Greece" },
-      { code: "TR", name: "Turkey" },
-      { code: "SA", name: "Saudi Arabia" },
-      { code: "AE", name: "United Arab Emirates" },
-      { code: "EG", name: "Egypt" },
-      { code: "MA", name: "Morocco" },
+      { code: "AF", name: "Afghanistan" },
+      { code: "AL", name: "Albania" },
       { code: "DZ", name: "Algeria" },
-      { code: "TN", name: "Tunisia" },
-      { code: "NG", name: "Nigeria" },
-      { code: "KE", name: "Kenya" },
-      { code: "GH", name: "Ghana" },
-      { code: "ZA", name: "South Africa" },
-      { code: "IN", name: "India" },
-      { code: "PK", name: "Pakistan" },
-      { code: "BD", name: "Bangladesh" },
-      { code: "LK", name: "Sri Lanka" },
-      { code: "NP", name: "Nepal" },
-      { code: "CN", name: "China" },
-      { code: "JP", name: "Japan" },
-      { code: "KR", name: "South Korea" },
-      { code: "ID", name: "Indonesia" },
-      { code: "MY", name: "Malaysia" },
-      { code: "PH", name: "Philippines" },
-      { code: "VN", name: "Vietnam" },
-      { code: "SG", name: "Singapore" },
+      { code: "AD", name: "Andorra" },
+      { code: "AO", name: "Angola" },
+      { code: "AR", name: "Argentina" },
+      { code: "AM", name: "Armenia" },
       { code: "AU", name: "Australia" },
+      { code: "AT", name: "Austria" },
+      { code: "AZ", name: "Azerbaijan" },
+      { code: "BH", name: "Bahrain" },
+      { code: "BD", name: "Bangladesh" },
+      { code: "BB", name: "Barbados" },
+      { code: "BY", name: "Belarus" },
+      { code: "BE", name: "Belgium" },
+      { code: "BZ", name: "Belize" },
+      { code: "BJ", name: "Benin" },
+      { code: "BT", name: "Bhutan" },
+      { code: "BO", name: "Bolivia" },
+      { code: "BA", name: "Bosnia and Herzegovina" },
+      { code: "BW", name: "Botswana" },
+      { code: "BR", name: "Brazil" },
+      { code: "BN", name: "Brunei" },
+      { code: "BG", name: "Bulgaria" },
+      { code: "BF", name: "Burkina Faso" },
+      { code: "BI", name: "Burundi" },
+      { code: "KH", name: "Cambodia" },
+      { code: "CM", name: "Cameroon" },
+      { code: "CA", name: "Canada" },
+      { code: "CV", name: "Cape Verde" },
+      { code: "CF", name: "Central African Republic" },
+      { code: "TD", name: "Chad" },
+      { code: "CL", name: "Chile" },
+      { code: "CN", name: "China" },
+      { code: "CO", name: "Colombia" },
+      { code: "KM", name: "Comoros" },
+      { code: "CG", name: "Congo" },
+      { code: "CD", name: "Congo, Democratic Republic" },
+      { code: "CR", name: "Costa Rica" },
+      { code: "CI", name: "Côte d’Ivoire" },
+      { code: "HR", name: "Croatia" },
+      { code: "CU", name: "Cuba" },
+      { code: "CY", name: "Cyprus" },
+      { code: "CZ", name: "Czech Republic" },
+      { code: "DK", name: "Denmark" },
+      { code: "DJ", name: "Djibouti" },
+      { code: "DM", name: "Dominica" },
+      { code: "DO", name: "Dominican Republic" },
+      { code: "EC", name: "Ecuador" },
+      { code: "EG", name: "Egypt" },
+      { code: "SV", name: "El Salvador" },
+      { code: "GQ", name: "Equatorial Guinea" },
+      { code: "ER", name: "Eritrea" },
+      { code: "EE", name: "Estonia" },
+      { code: "SZ", name: "Eswatini" },
+      { code: "ET", name: "Ethiopia" },
+      { code: "FI", name: "Finland" },
+      { code: "FR", name: "France" },
+      { code: "GA", name: "Gabon" },
+      { code: "GM", name: "Gambia" },
+      { code: "GE", name: "Georgia" },
+      { code: "DE", name: "Germany" },
+      { code: "GH", name: "Ghana" },
+      { code: "GR", name: "Greece" },
+      { code: "GD", name: "Grenada" },
+      { code: "GT", name: "Guatemala" },
+      { code: "GN", name: "Guinea" },
+      { code: "GW", name: "Guinea-Bissau" },
+      { code: "GY", name: "Guyana" },
+      { code: "HT", name: "Haiti" },
+      { code: "HN", name: "Honduras" },
+      { code: "HU", name: "Hungary" },
+      { code: "IS", name: "Iceland" },
+      { code: "IN", name: "India" },
+      { code: "ID", name: "Indonesia" },
+      { code: "IR", name: "Iran" },
+      { code: "IQ", name: "Iraq" },
+      { code: "IE", name: "Ireland" },
+      { code: "IL", name: "Israel" },
+      { code: "IT", name: "Italy" },
+      { code: "JM", name: "Jamaica" },
+      { code: "JP", name: "Japan" },
+      { code: "JO", name: "Jordan" },
+      { code: "KZ", name: "Kazakhstan" },
+      { code: "KE", name: "Kenya" },
+      { code: "KI", name: "Kiribati" },
+      { code: "KP", name: "Korea, North" },
+      { code: "KR", name: "Korea, South" },
+      { code: "KW", name: "Kuwait" },
+      { code: "KG", name: "Kyrgyzstan" },
+      { code: "LA", name: "Laos" },
+      { code: "LV", name: "Latvia" },
+      { code: "LB", name: "Lebanon" },
+      { code: "LS", name: "Lesotho" },
+      { code: "LR", name: "Liberia" },
+      { code: "LY", name: "Libya" },
+      { code: "LI", name: "Liechtenstein" },
+      { code: "LT", name: "Lithuania" },
+      { code: "LU", name: "Luxembourg" },
+      { code: "MG", name: "Madagascar" },
+      { code: "MW", name: "Malawi" },
+      { code: "MY", name: "Malaysia" },
+      { code: "MV", name: "Maldives" },
+      { code: "ML", name: "Mali" },
+      { code: "MT", name: "Malta" },
+      { code: "MH", name: "Marshall Islands" },
+      { code: "MR", name: "Mauritania" },
+      { code: "MU", name: "Mauritius" },
+      { code: "MX", name: "Mexico" },
+      { code: "FM", name: "Micronesia" },
+      { code: "MD", name: "Moldova" },
+      { code: "MC", name: "Monaco" },
+      { code: "MN", name: "Mongolia" },
+      { code: "ME", name: "Montenegro" },
+      { code: "MA", name: "Morocco" },
+      { code: "MZ", name: "Mozambique" },
+      { code: "MM", name: "Myanmar" },
+      { code: "NA", name: "Namibia" },
+      { code: "NR", name: "Nauru" },
+      { code: "NP", name: "Nepal" },
+      { code: "NL", name: "Netherlands" },
       { code: "NZ", name: "New Zealand" },
-      // Tu pourras en ajouter d'autres si tu veux être 100% ISO-3166
+      { code: "NI", name: "Nicaragua" },
+      { code: "NE", name: "Niger" },
+      { code: "NG", name: "Nigeria" },
+      { code: "MK", name: "North Macedonia" },
+      { code: "NO", name: "Norway" },
+      { code: "OM", name: "Oman" },
+      { code: "PK", name: "Pakistan" },
+      { code: "PW", name: "Palau" },
+      { code: "PA", name: "Panama" },
+      { code: "PG", name: "Papua New Guinea" },
+      { code: "PY", name: "Paraguay" },
+      { code: "PE", name: "Peru" },
+      { code: "PH", name: "Philippines" },
+      { code: "PL", name: "Poland" },
+      { code: "PT", name: "Portugal" },
+      { code: "QA", name: "Qatar" },
+      { code: "RO", name: "Romania" },
+      { code: "RU", name: "Russia" },
+      { code: "RW", name: "Rwanda" },
+      { code: "KN", name: "Saint Kitts and Nevis" },
+      { code: "LC", name: "Saint Lucia" },
+      { code: "VC", name: "Saint Vincent and the Grenadines" },
+      { code: "WS", name: "Samoa" },
+      { code: "SM", name: "San Marino" },
+      { code: "ST", name: "Sao Tome and Principe" },
+      { code: "SA", name: "Saudi Arabia" },
+      { code: "SN", name: "Senegal" },
+      { code: "RS", name: "Serbia" },
+      { code: "SC", name: "Seychelles" },
+      { code: "SL", name: "Sierra Leone" },
+      { code: "SG", name: "Singapore" },
+      { code: "SK", name: "Slovakia" },
+      { code: "SI", name: "Slovenia" },
+      { code: "SB", name: "Solomon Islands" },
+      { code: "SO", name: "Somalia" },
+      { code: "ZA", name: "South Africa" },
+      { code: "SS", name: "South Sudan" },
+      { code: "ES", name: "Spain" },
+      { code: "LK", name: "Sri Lanka" },
+      { code: "SD", name: "Sudan" },
+      { code: "SR", name: "Suriname" },
+      { code: "SE", name: "Sweden" },
+      { code: "CH", name: "Switzerland" },
+      { code: "SY", name: "Syria" },
+      { code: "TJ", name: "Tajikistan" },
+      { code: "TZ", name: "Tanzania" },
+      { code: "TH", name: "Thailand" },
+      { code: "TL", name: "Timor-Leste" },
+      { code: "TG", name: "Togo" },
+      { code: "TO", name: "Tonga" },
+      { code: "TT", name: "Trinidad and Tobago" },
+      { code: "TN", name: "Tunisia" },
+      { code: "TR", name: "Turkey" },
+      { code: "TM", name: "Turkmenistan" },
+      { code: "TV", name: "Tuvalu" },
+      { code: "UG", name: "Uganda" },
+      { code: "UA", name: "Ukraine" },
+      { code: "AE", name: "United Arab Emirates" },
+      { code: "GB", name: "United Kingdom" },
+      { code: "US", name: "United States" },
+      { code: "UY", name: "Uruguay" },
+      { code: "UZ", name: "Uzbekistan" },
+      { code: "VU", name: "Vanuatu" },
+      { code: "VA", name: "Vatican City" },
+      { code: "VE", name: "Venezuela" },
+      { code: "VN", name: "Vietnam" },
+      { code: "YE", name: "Yemen" },
+      { code: "ZM", name: "Zambia" },
+      { code: "ZW", name: "Zimbabwe" },
     ];
 
     // ========= Fonction pour appliquer la langue à la page =========
@@ -597,6 +740,8 @@
       document.getElementById("sexFemale").textContent = t.sexFemale;
       document.getElementById("countryLabel").textContent = t.countryLabel;
       document.getElementById("countryHelper").textContent = t.countryHelper;
+      document.getElementById("countryPlaceholder").textContent =
+        t.countryPlaceholder;
       document.getElementById("calcLabel").textContent = t.calcLabel;
       document.getElementById("calc30000").textContent = t.calc30000;
       document.getElementById("calcReal").textContent = t.calcReal;
@@ -606,7 +751,7 @@
     }
 
     // ========= Life expectancy API =========
-    // Utilise l'API World Bank (données globales), puis ajuste légèrement par sexe.
+    // Utilise l'API World Bank, puis ajuste légèrement par sexe.
 
     async function fetchLifeExpectancyDays(countryCode, sex) {
       const url =
@@ -688,14 +833,12 @@
       }
 
       langSelect.value = initialLang;
-      applyLang(initialLang);
 
-      // Quand on change la langue, on sauvegarde dans localStorage
-      langSelect.addEventListener("change", () => {
-        const newLang = langSelect.value;
-        localStorage.setItem("daylife_lang", newLang);
-        applyLang(newLang);
-      });
+      // 👉 Créer d'abord le placeholder du pays (pour pouvoir le traduire)
+      const placeholderOption = document.createElement("option");
+      placeholderOption.value = "";
+      placeholderOption.id = "countryPlaceholder";
+      countrySelect.appendChild(placeholderOption);
 
       // Remplir la liste des pays
       countries.forEach((c) => {
@@ -703,6 +846,16 @@
         opt.value = c.code;
         opt.textContent = c.name;
         countrySelect.appendChild(opt);
+      });
+
+      // Appliquer la langue initiale
+      applyLang(initialLang);
+
+      // Quand on change la langue, on sauvegarde dans localStorage
+      langSelect.addEventListener("change", () => {
+        const newLang = langSelect.value;
+        localStorage.setItem("daylife_lang", newLang);
+        applyLang(newLang);
       });
 
       // Gestion du formulaire

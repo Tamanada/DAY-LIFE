@@ -2,242 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>DAYLIFE – Dreams</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAYLIFE – Dreams</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/nav.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
-</head> 
+</head>
 
 <body>
   <div class="app-shell">
+    <!-- HEADER -->
     <header id="appHeader"></header>
 
+    <!-- PAGE CONTENT -->
     <main class="page">
-      <div class="page-inner dreams-page">
-        <section class="section dreams-intro">
+      <div class="page-inner">
+        <section class="section">
           <div class="section-title-row">
             <i data-lucide="target"></i>
-            <div class="section-title-text">Your Dreams</div>
+            <h2 data-i18n="dreams.title">Your Dreams</h2>
           </div>
-          <p class="section-subtitle">Turn your days into dreams, and your dreams into days.</p>
+          <p class="section-subtitle" data-i18n="dreams.subtitle">
+            Turn your days into dreams, and your dreams into days.
+          </p>
 
-          <button id="addDreamBtn" class="btn-primary add-dream-btn">
-            <i data-lucide="plus"></i> New Dream
+          <button id="newDreamBtn" class="btn-primary">
+            <i data-lucide="plus"></i>
+            <span data-i18n="dreams.newDream">New Dream</span>
           </button>
-        </section>
 
-        <section class="section">
-          <div id="dreamList" class="dream-list"></div>
+          <div id="dreamsList" class="dreams-list"></div>
         </section>
       </div>
     </main>
 
+    <!-- BOTTOM NAV -->
     <footer id="bottomNav"></footer>
   </div>
 
-  <!-- MODALE : AJOUT / ÉDITION DE RÊVE -->
-  <div id="dreamModal" class="modal hidden">
-    <div class="modal-content">
-      <h3 id="modalTitle">✨ Create a Dream</h3>
-
-      <label>Title</label>
-      <input type="text" id="dreamTitle" placeholder="e.g. Travel to Japan" />
-
-      <label>Description</label>
-      <textarea id="dreamDesc" placeholder="Describe your dream..."></textarea>
-
-      <label>Goal date</label>
-      <input type="date" id="dreamTargetDate" />
-
-      <label>Progress mode</label>
-      <select id="dreamMode">
-        <option value="days">Days</option>
-        <option value="months">Months</option>
-        <option value="years">Years</option>
-        <option value="percent">%</option>
-      </select>
-
-      <div class="ai-section">
-        <label>🤖 Generate Dream Image</label>
-        <p class="ai-tip">
-          “Décris l’instant où ton rêve commence…”  
-          <br><small class="tips">Imagine la lumière, les sons, les couleurs.<br>
-          Où es-tu ? Que ressens-tu ? Que portes-tu ?</small>
-        </p>
-        <textarea id="aiPrompt" placeholder="Write your dream scene..."></textarea>
-        <button id="generateAiBtn" class="btn-outline">Generate AI Image</button>
-        <div id="aiPreview" class="ai-preview hidden">
-          <img id="aiImage" src="" alt="Dream preview">
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button id="saveDreamBtn" class="btn-primary">Save Dream</button>
-        <button id="cancelDreamBtn" class="btn-outline">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODALE : MILESTONES -->
-  <div id="milestoneModal" class="modal hidden">
-    <div class="modal-content">
-      <h3>🎯 Milestones</h3>
-      <ul id="milestoneList"></ul>
-      <div class="milestone-actions">
-        <input type="text" id="milestoneInput" placeholder="Add new milestone..." />
-        <button id="addMilestoneBtn" class="btn-primary">Add</button>
-      </div>
-      <div class="modal-actions">
-        <button id="closeMilestoneBtn" class="btn-outline">Close</button>
-      </div>
-    </div>
-  </div>
-
+  <!-- Scripts -->
   <script src="assets/lang.js"></script>
   <script src="assets/nav.js"></script>
+  <script src="assets/dreams.js"></script>
   <script>
     createNavBar("dreams");
-    if (window.lucide) lucide.createIcons();
-
-    function loadDreams() {
-      try { return JSON.parse(localStorage.getItem("daylifeDreams") || "[]"); }
-      catch (e) { return []; }
-    }
-
-    function saveDreams(dreams) {
-      localStorage.setItem("daylifeDreams", JSON.stringify(dreams));
-    }
-
-    const dreamListEl = document.getElementById("dreamList");
-    const modal = document.getElementById("dreamModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const dreamTitle = document.getElementById("dreamTitle");
-    const dreamDesc = document.getElementById("dreamDesc");
-    const dreamTargetDate = document.getElementById("dreamTargetDate");
-    const dreamMode = document.getElementById("dreamMode");
-    const aiPrompt = document.getElementById("aiPrompt");
-    const generateAiBtn = document.getElementById("generateAiBtn");
-    const aiPreview = document.getElementById("aiPreview");
-    const aiImage = document.getElementById("aiImage");
-
-    const saveDreamBtn = document.getElementById("saveDreamBtn");
-    const cancelDreamBtn = document.getElementById("cancelDreamBtn");
-    const addDreamBtn = document.getElementById("addDreamBtn");
-
-    let editingDreamId = null;
-    let dreams = loadDreams();
-
-    function renderDreams() {
-      dreamListEl.innerHTML = "";
-      if (!dreams.length) {
-        dreamListEl.innerHTML = `<p class="section-subtitle">No dreams yet. Add one 🌙</p>`;
-        return;
-      }
-      dreams.forEach((dream) => {
-        const progress = (dream.milestones?.filter(m=>m.done).length / (dream.milestones?.length || 1)) * 100;
-        const card = document.createElement("div");
-        card.className = "dream-card";
-        card.innerHTML = `
-          <div class="dream-card-header">
-            <h4>${dream.title}</h4>
-            <div class="dream-card-actions">
-              <button class="btn-icon edit" data-id="${dream.id}"><i data-lucide="edit-3"></i></button>
-              <button class="btn-icon delete" data-id="${dream.id}"><i data-lucide="trash-2"></i></button>
-            </div>
-          </div>
-          ${dream.image ? `<img src="${dream.image}" class="dream-image" />` : ""}
-          <p class="dream-desc">${dream.description || ""}</p>
-          <div class="dream-meta">
-            <span>📅 ${new Date(dream.targetDate).toLocaleDateString()}</span>
-          </div>
-          <div class="dream-progress-bar">
-            <div class="dream-progress-fill" style="width:${progress}%;"></div>
-          </div>
-          <div class="dream-footer">
-            <button class="btn-outline milestones" data-id="${dream.id}">
-              <i data-lucide="list-checks"></i> Milestones (${dream.milestones?.length || 0})
-            </button>
-          </div>
-        `;
-        dreamListEl.appendChild(card);
-      });
-      lucide.createIcons();
-    }
-    renderDreams();
-
-    // Modales
-    function openModal(editId = null) {
-      modal.classList.remove("hidden");
-      editingDreamId = editId;
-      if (editId) {
-        const d = dreams.find(x => x.id === editId);
-        modalTitle.textContent = "Edit Dream";
-        dreamTitle.value = d.title; dreamDesc.value = d.description;
-        dreamTargetDate.value = d.targetDate; dreamMode.value = d.mode;
-        aiPrompt.value = d.prompt || "";
-        if (d.image) { aiImage.src = d.image; aiPreview.classList.remove("hidden"); }
-      } else {
-        modalTitle.textContent = "New Dream";
-        dreamTitle.value = dreamDesc.value = aiPrompt.value = "";
-        dreamTargetDate.value = ""; aiPreview.classList.add("hidden");
-      }
-    }
-
-    function closeModal() { modal.classList.add("hidden"); }
-
-    addDreamBtn.addEventListener("click", () => openModal());
-    cancelDreamBtn.addEventListener("click", closeModal);
-
-    saveDreamBtn.addEventListener("click", () => {
-      const t = dreamTitle.value.trim();
-      if (!t || !dreamTargetDate.value) return alert("Please fill in all required fields.");
-      const obj = {
-        title: t,
-        description: dreamDesc.value.trim(),
-        createdAt: new Date().toISOString().split("T")[0],
-        targetDate: dreamTargetDate.value,
-        mode: dreamMode.value,
-        prompt: aiPrompt.value.trim(),
-        image: aiImage.src || null,
-        milestones: []
-      };
-      if (editingDreamId) {
-        const i = dreams.findIndex(d => d.id === editingDreamId);
-        dreams[i] = { ...dreams[i], ...obj };
-      } else {
-        obj.id = Date.now().toString();
-        dreams.push(obj);
-      }
-      saveDreams(dreams);
-      renderDreams();
-      closeModal();
-    });
-
-    // AI Preview simulation
-    generateAiBtn.addEventListener("click", () => {
-      const txt = aiPrompt.value.trim();
-      if (!txt) return alert("Please describe your dream first.");
-      aiPreview.classList.remove("hidden");
-      aiImage.src = "https://source.unsplash.com/featured/?dream,sky,moon";
-    });
-
-    dreamListEl.addEventListener("click", (e) => {
-      const id = e.target.closest("button")?.dataset.id;
-      if (!id) return;
-      if (e.target.closest(".edit")) openModal(id);
-      if (e.target.closest(".delete")) {
-        dreams = dreams.filter((d) => d.id !== id);
-        saveDreams(dreams);
-        renderDreams();
-      }
-    });
+    lucide.createIcons();
   </script>
-
-  <style>
-    .dream-image { width: 100%; border-radius: 12px; margin: 8px 0; }
-    .ai-section { margin-top: 14px; }
-    .ai-tip { font-size: 13px; color: #475569; margin: 6px 0; }
-    .ai-preview img { width: 100%; border-radius: 10px; margin-top: 6px; box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
-  </style>
 </body>
 </html>

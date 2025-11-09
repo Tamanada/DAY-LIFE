@@ -2,159 +2,483 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAYLIFE – Dreams</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="assets/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
   <div class="app-shell">
-    <!-- HEADER NAVIGATION -->
     <header id="appHeader"></header>
 
-    <!-- PAGE CONTENT -->
     <main class="page">
-      <div class="page-inner">
-
-        <!-- INTRO SECTION -->
+      <div class="page-inner dreams-page">
         <section class="section dreams-intro">
           <div class="section-title-row">
-            <i data-lucide="target" class="section-title-emoji"></i>
+            <i data-lucide="target"></i>
             <div class="section-title-text" data-i18n="dreams.title">Your Dreams</div>
           </div>
-          <p data-i18n="dreams.subtitle">
+          <p class="section-subtitle" data-i18n="dreams.subtitle">
             Turn your days into dreams, and your dreams into days.
           </p>
-        </section>
 
-        <!-- ADD DREAM BUTTON -->
-        <section class="section">
-          <button class="btn btn-primary" id="addDreamBtn">
-            <i data-lucide="plus-circle"></i> Add a New Dream
+          <button id="addDreamBtn" class="btn-primary add-dream-btn">
+            <i data-lucide="plus"></i> <span data-i18n="dreams.add">New Dream</span>
           </button>
         </section>
 
-        <!-- DREAMS LIST -->
         <section class="section">
-          <div id="dreamsList" class="dreams-list">
-
-            <!-- DREAM CARD EXAMPLE -->
-            <article class="dream-card">
-              <div class="dream-title-row">
-                <i data-lucide="island" class="dream-emoji"></i>
-                <div class="dream-title">Travel to Koh Phangan</div>
-              </div>
-
-              <div class="dream-meta">Goal date: Dec 31, 2025</div>
-              <span class="status-pill status-in-progress">In Progress</span>
-
-              <div class="milestones-section">
-                <div class="section-subtitle">Milestones</div>
-                <ul class="milestone-list">
-                  <li>
-                    <input type="checkbox" id="m1" />
-                    <label for="m1">Save $1,000 for travel</label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="m2" checked />
-                    <label for="m2">Book the flight</label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="m3" />
-                    <label for="m3">Find a place to stay</label>
-                  </li>
-                </ul>
-
-                <div class="milestone-actions">
-                  <button class="btn btn-outline">
-                    <i data-lucide="plus"></i> Add Milestone
-                  </button>
-                </div>
-              </div>
-
-              <div class="dream-footer">
-                <div class="dream-actions">
-                  <button class="btn btn-outline">
-                    <i data-lucide="edit"></i> Edit
-                  </button>
-                  <button class="btn btn-outline">
-                    <i data-lucide="x-circle"></i> Cancel
-                  </button>
-                  <button class="btn btn-primary completeDreamBtn">
-                    <i data-lucide="check-circle-2"></i> Mark as Complete
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- DREAM CARD TEMPLATE -->
-            <article class="dream-card">
-              <div class="dream-title-row">
-                <i data-lucide="book-open" class="dream-emoji"></i>
-                <div class="dream-title">Write my book</div>
-              </div>
-
-              <div class="dream-meta">Goal date: Mar 1, 2026</div>
-              <span class="status-pill status-planned">Planned</span>
-
-              <div class="milestones-section">
-                <div class="section-subtitle">Milestones</div>
-                <ul class="milestone-list">
-                  <li>
-                    <input type="checkbox" id="m4" />
-                    <label for="m4">Outline 10 chapters</label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="m5" />
-                    <label for="m5">Write the first draft</label>
-                  </li>
-                </ul>
-                <div class="milestone-actions">
-                  <button class="btn btn-outline">
-                    <i data-lucide="plus"></i> Add Milestone
-                  </button>
-                </div>
-              </div>
-
-              <div class="dream-footer">
-                <div class="dream-actions">
-                  <button class="btn btn-outline">
-                    <i data-lucide="edit"></i> Edit
-                  </button>
-                  <button class="btn btn-outline">
-                    <i data-lucide="x-circle"></i> Cancel
-                  </button>
-                  <button class="btn btn-primary completeDreamBtn">
-                    <i data-lucide="check-circle-2"></i> Mark as Complete
-                  </button>
-                </div>
-              </div>
-            </article>
-
-          </div>
+          <div id="dreamList" class="dream-list"></div>
         </section>
       </div>
     </main>
 
-    <!-- BOTTOM NAVIGATION -->
     <footer id="bottomNav"></footer>
   </div>
 
-  <!-- 🔗 LIBRARIES -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- MODALE : AJOUT / ÉDITION DE RÊVE -->
+  <div id="dreamModal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modalTitle">✨ Create a Dream</h3>
+      <label>Title</label>
+      <input type="text" id="dreamTitle" placeholder="e.g. Travel to Japan" />
+      <label>Description</label>
+      <textarea id="dreamDesc" placeholder="Describe your dream..."></textarea>
+      <label>Goal date</label>
+      <input type="date" id="dreamTargetDate" />
+      <label>Progress mode</label>
+      <select id="dreamMode">
+        <option value="days">Days</option>
+        <option value="months">Months</option>
+        <option value="years">Years</option>
+        <option value="percent">%</option>
+      </select>
+      <div class="modal-actions">
+        <button id="saveDreamBtn" class="btn-primary">Save</button>
+        <button id="cancelDreamBtn" class="btn-outline">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALE : MILESTONES -->
+  <div id="milestoneModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>🎯 Milestones</h3>
+      <ul id="milestoneList"></ul>
+      <div class="milestone-actions">
+        <input type="text" id="milestoneInput" placeholder="Add new milestone..." />
+        <button id="addMilestoneBtn" class="btn-primary">Add</button>
+      </div>
+      <div class="modal-actions">
+        <button id="closeMilestoneBtn" class="btn-outline">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
   <script src="assets/lang.js"></script>
   <script src="assets/nav.js"></script>
 
   <script>
     createNavBar("dreams");
+    if (window.lucide) lucide.createIcons();
 
-    // 🌟 Example dream completion handler
-    document.querySelectorAll(".completeDreamBtn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        alert("🎉 Congratulations! Your dream has been completed! (+5⭐)");
-        // Animation / reward logic will be added in PHASE 2
+    // --- LocalStorage Utils ---
+    function loadDreams() {
+      try {
+        return JSON.parse(localStorage.getItem("daylifeDreams") || "[]");
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveDreams(dreams) {
+      localStorage.setItem("daylifeDreams", JSON.stringify(dreams));
+    }
+
+    // --- DOM Elements ---
+    const dreamListEl = document.getElementById("dreamList");
+    const modal = document.getElementById("dreamModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const dreamTitle = document.getElementById("dreamTitle");
+    const dreamDesc = document.getElementById("dreamDesc");
+    const dreamTargetDate = document.getElementById("dreamTargetDate");
+    const dreamMode = document.getElementById("dreamMode");
+    const saveDreamBtn = document.getElementById("saveDreamBtn");
+    const cancelDreamBtn = document.getElementById("cancelDreamBtn");
+    const addDreamBtn = document.getElementById("addDreamBtn");
+
+    const milestoneModal = document.getElementById("milestoneModal");
+    const milestoneList = document.getElementById("milestoneList");
+    const milestoneInput = document.getElementById("milestoneInput");
+    const addMilestoneBtn = document.getElementById("addMilestoneBtn");
+    const closeMilestoneBtn = document.getElementById("closeMilestoneBtn");
+
+    let editingDreamId = null;
+    let dreams = loadDreams();
+
+    // --- Rendering ---
+    function renderDreams() {
+      dreamListEl.innerHTML = "";
+      if (!dreams.length) {
+        dreamListEl.innerHTML = `<p class="section-subtitle">No dreams yet. Add one 🌙</p>`;
+        return;
+      }
+
+      dreams.forEach((dream) => {
+        const daysLeft = dream.targetDate
+          ? Math.ceil(
+              (new Date(dream.targetDate) - new Date(dream.createdAt)) /
+                (1000 * 60 * 60 * 24)
+            )
+          : 0;
+
+        const card = document.createElement("div");
+        card.className = "dream-card";
+        card.innerHTML = `
+          <div class="dream-card-header">
+            <h4>${dream.title}</h4>
+            <div class="dream-card-actions">
+              <button class="btn-icon edit" data-id="${dream.id}"><i data-lucide="edit-3"></i></button>
+              <button class="btn-icon delete" data-id="${dream.id}"><i data-lucide="trash-2"></i></button>
+            </div>
+          </div>
+          <p class="dream-desc">${dream.description || ""}</p>
+          <div class="dream-meta">
+            <span>📅 ${new Date(dream.targetDate).toLocaleDateString()}</span>
+            <span>🕰️ ${daysLeft} days left</span>
+          </div>
+          <div class="dream-progress-bar">
+            <div class="dream-progress-fill" style="width:${Math.min(
+              (dream.milestones?.filter(m=>m.done).length / (dream.milestones?.length || 1))*100,
+              100
+            )}%;"></div>
+          </div>
+          <div class="dream-footer">
+            <button class="btn-outline milestones" data-id="${dream.id}">
+              <i data-lucide="list-checks"></i> Milestones (${dream.milestones?.length || 0})
+            </button>
+          </div>
+        `;
+        dreamListEl.appendChild(card);
       });
+      lucide.createIcons();
+    }
+
+    renderDreams();
+
+    // --- Modal Controls ---
+    function openModal(editId = null) {
+      modal.classList.remove("hidden");
+      editingDreamId = editId;
+
+      if (editId) {
+        const dream = dreams.find((d) => d.id === editId);
+        if (!dream) return;
+        modalTitle.textContent = "Edit Dream";
+        dreamTitle.value = dream.title;
+        dreamDesc.value = dream.description;
+        dreamTargetDate.value = dream.targetDate;
+        dreamMode.value = dream.mode || "days";
+      } else {
+        modalTitle.textContent = "New Dream";
+        dreamTitle.value = "";
+        dreamDesc.value = "";
+        dreamTargetDate.value = "";
+        dreamMode.value = "days";
+      }
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+    }
+
+    addDreamBtn.addEventListener("click", () => openModal());
+    cancelDreamBtn.addEventListener("click", closeModal);
+
+    saveDreamBtn.addEventListener("click", () => {
+      const title = dreamTitle.value.trim();
+      const desc = dreamDesc.value.trim();
+      const targetDate = dreamTargetDate.value;
+      const mode = dreamMode.value;
+
+      if (!title || !targetDate) {
+        alert("Please enter a title and goal date.");
+        return;
+      }
+
+      if (editingDreamId) {
+        const index = dreams.findIndex((d) => d.id === editingDreamId);
+        if (index >= 0) {
+          dreams[index].title = title;
+          dreams[index].description = desc;
+          dreams[index].targetDate = targetDate;
+          dreams[index].mode = mode;
+        }
+      } else {
+        dreams.push({
+          id: Date.now().toString(),
+          title,
+          description: desc,
+          createdAt: new Date().toISOString().split("T")[0],
+          targetDate,
+          mode,
+          milestones: [],
+        });
+      }
+
+      saveDreams(dreams);
+      renderDreams();
+      closeModal();
+    });
+
+    // --- Delete / Edit / Milestones ---
+    dreamListEl.addEventListener("click", (e) => {
+      const id = e.target.closest("button")?.dataset.id;
+      if (!id) return;
+
+      if (e.target.closest(".delete")) {
+        dreams = dreams.filter((d) => d.id !== id);
+        saveDreams(dreams);
+        renderDreams();
+      }
+
+      if (e.target.closest(".edit")) {
+        openModal(id);
+      }
+
+      if (e.target.closest(".milestones")) {
+        openMilestoneModal(id);
+      }
+    });
+
+    // --- Milestones Logic ---
+    let currentMilestoneDreamId = null;
+
+    function openMilestoneModal(id) {
+      currentMilestoneDreamId = id;
+      const dream = dreams.find((d) => d.id === id);
+      if (!dream) return;
+
+      milestoneModal.classList.remove("hidden");
+      renderMilestones(dream);
+    }
+
+    function closeMilestoneModal() {
+      milestoneModal.classList.add("hidden");
+      currentMilestoneDreamId = null;
+    }
+
+    closeMilestoneBtn.addEventListener("click", closeMilestoneModal);
+
+    function renderMilestones(dream) {
+      milestoneList.innerHTML = "";
+      (dream.milestones || []).forEach((m, index) => {
+        const li = document.createElement("li");
+        li.className = "milestone-item";
+        li.innerHTML = `
+          <label>
+            <input type="checkbox" data-index="${index}" ${m.done ? "checked" : ""}>
+            ${m.text}
+          </label>
+          <button class="btn-icon delete-milestone" data-index="${index}">
+            <i data-lucide="x"></i>
+          </button>
+        `;
+        milestoneList.appendChild(li);
+      });
+      lucide.createIcons();
+    }
+
+    addMilestoneBtn.addEventListener("click", () => {
+      const text = milestoneInput.value.trim();
+      if (!text) return;
+      const dream = dreams.find((d) => d.id === currentMilestoneDreamId);
+      if (!dream.milestones) dream.milestones = [];
+      dream.milestones.push({ text, done: false });
+      milestoneInput.value = "";
+      saveDreams(dreams);
+      renderMilestones(dream);
+      renderDreams();
+    });
+
+    milestoneList.addEventListener("change", (e) => {
+      if (e.target.type === "checkbox") {
+        const index = e.target.dataset.index;
+        const dream = dreams.find((d) => d.id === currentMilestoneDreamId);
+        dream.milestones[index].done = e.target.checked;
+        saveDreams(dreams);
+        renderMilestones(dream);
+        renderDreams();
+      }
+    });
+
+    milestoneList.addEventListener("click", (e) => {
+      const index = e.target.closest("button")?.dataset.index;
+      if (index !== undefined) {
+        const dream = dreams.find((d) => d.id === currentMilestoneDreamId);
+        dream.milestones.splice(index, 1);
+        saveDreams(dreams);
+        renderMilestones(dream);
+        renderDreams();
+      }
     });
   </script>
+
+  <!-- STYLES ADDITIONNELS -->
+  <style>
+    .add-dream-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .dream-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .dream-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .dream-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dream-card-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .dream-meta {
+      font-size: 12px;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .dream-progress-bar {
+      height: 8px;
+      border-radius: 8px;
+      background: #e5e7eb;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .dream-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      transition: width 0.3s ease;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .milestone-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal.hidden { display: none; }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content label {
+      display: block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #475569;
+    }
+
+    .modal-content input,
+    .modal-content textarea,
+    .modal-content select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+      margin-top: 4px;
+    }
+
+    .modal-actions {
+      text-align: right;
+      margin-top: 14px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    #milestoneList {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .milestone-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .milestone-actions input {
+      flex: 1;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #7c3aed, #2563eb);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
+    }
+
+    .btn-outline {
+      background: white;
+      color: #2563eb;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+  </style>
 </body>
 </html>
